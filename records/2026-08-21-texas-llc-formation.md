@@ -21,3 +21,7 @@ Reference record for reviewing this brief/case in the future.
   - Track at: https://webservices.sos.state.tx.us/filing-status/status.aspx
   - Approved documents will appear in the SOSDirect Briefcase
 - Post-approval checklist: EIN (irs.gov, free), operating agreement, business bank account, Texas Public Information Report due each May 15 starting the year after formation
+
+## Documents
+
+- [`Lykos-Intelligence-LLC-Company-Agreement.docx`](./Lykos-Intelligence-LLC-Company-Agreement.docx) — single-member company agreement (Texas BOC § 101.052), drafted 2026-08-21. Yellow-highlighted placeholders (member name, addresses, effective date, initial capital contribution) must be completed before signing. Not legal advice.
