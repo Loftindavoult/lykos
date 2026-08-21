@@ -1,6 +1,7 @@
 # Texas LLC Formation — Lykos Intelligence LLC
 
 **Session code:** `082126GW2929`
+**SOS Document #:** `1621168920002`
 
 Reference record for reviewing this brief/case in the future.
 
@@ -14,6 +15,9 @@ Reference record for reviewing this brief/case in the future.
 
 ## Status at time of record
 
-- Form 205 prepared and verified, pending owner's legal name and Texas street address
-- Filing to be submitted by owner via SOSDirect (or SOSUpload) with card payment (~$308.10 total)
+- **SUBMITTED 2026-08-21** via SOSDirect web filing (Form 205), transaction receipt received
+  - Session ID: 082126GW2929 · Document #: 1621168920002
+  - Pending Secretary of State review for statutory compliance; email notification on filing or rejection
+  - Track at: https://webservices.sos.state.tx.us/filing-status/status.aspx
+  - Approved documents will appear in the SOSDirect Briefcase
 - Post-approval checklist: EIN (irs.gov, free), operating agreement, business bank account, Texas Public Information Report due each May 15 starting the year after formation
