@@ -359,9 +359,9 @@
   .hero-bg canvas {
     width: 100%;
     height: 100%;
-    opacity: 0.55;
-    mask-image: radial-gradient(ellipse 70% 65% at 50% 40%, #000 40%, transparent 85%);
-    -webkit-mask-image: radial-gradient(ellipse 70% 65% at 50% 40%, #000 40%, transparent 85%);
+    opacity: 0.9;
+    mask-image: radial-gradient(ellipse 88% 82% at 50% 45%, #000 55%, transparent 96%);
+    -webkit-mask-image: radial-gradient(ellipse 88% 82% at 50% 45%, #000 55%, transparent 96%);
   }
 
   .hero > *:not(.hero-bg) { position: relative; z-index: 1; }
@@ -3309,7 +3309,7 @@
   var preNetwork = null, heroNetwork = null;
   if (!reduceMotion) {
     preNetwork = initNetwork('preCanvas', { count: 70, maxDist: 115, color: '194,58,48', speed: 0.4, pulses: true, spawnEvery: 46 });
-    heroNetwork = initNetwork('heroCanvas', { count: 50, maxDist: 130, color: '178,42,38', speed: 0.16 });
+    heroNetwork = initNetwork('heroCanvas', { count: 95, maxDist: 140, color: '178,42,38', speed: 0.16 });
   }
 
   var pctEl = document.getElementById('prePct');
