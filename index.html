@@ -1166,7 +1166,35 @@
   .mock-service{ background:#fff; padding:18px 16px; font-size:12.5px; color:#333; display:flex; align-items:center; gap:9px; font-weight:500; transition:background .15s ease; }
   .mock-service:hover{ background:color-mix(in oklab, currentColor 5%, #fff); }
   .mock-service-mark{ font-family:var(--mono); font-size:11px; font-weight:700; color:var(--d-accent); flex-shrink:0; }
-  .mock-contact{ display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:22px; background:#fff; border-top:1px solid #ececec; }
+
+  /* multi-page shell */
+  .mock-pageview[hidden]{ display:none; }
+  .mock-nav-brand.mock-nav-link{ cursor:pointer; }
+  .mock-page-head{ padding:40px 24px 8px; text-align:center; }
+  .mock-page-head h4{ font-family:var(--serif); font-size:clamp(19px,2.6vw,25px); font-weight:600; margin:6px 0 0; color:#161311; }
+  .mock-highlights{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px 22px; padding:0 24px 34px; }
+  .mock-highlight{ font-size:12px; color:#5c5652; display:flex; align-items:center; gap:7px; }
+  .mock-highlight-mark{ color:var(--d-accent); font-weight:700; }
+  .mock-home-more{ text-align:center; padding:22px 24px; background:#fff; }
+
+  .mock-about-story{ max-width:62ch; margin:18px auto 30px; padding:0 24px; font-size:13.5px; color:#5c5652; line-height:1.7; text-align:center; }
+  .mock-stat-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:#ececec; margin-bottom:1px; }
+  .mock-stat{ background:#fff; padding:24px 12px; text-align:center; }
+  .mock-stat-n{ font-family:var(--serif); font-size:24px; font-weight:600; color:var(--d-accent); }
+  .mock-stat-l{ font-size:11px; color:#8a8a8a; margin-top:4px; }
+  .mock-team-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:#ececec; }
+  .mock-team-card{ background:#fff; padding:26px 14px; text-align:center; }
+  .mock-team-avatar{ width:44px; height:44px; border-radius:50%; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:13px; font-weight:700; font-family:var(--mono); }
+  .mock-team-name{ font-size:12.5px; font-weight:600; color:#232323; }
+  .mock-team-role{ font-size:10.5px; color:#8a8a8a; margin-top:2px; }
+
+  .mock-contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0; background:#fff; }
+  @media (max-width:640px){ .mock-contact-grid{ grid-template-columns:1fr; } }
+  .mock-contact-info{ padding:22px; border-top:1px solid #ececec; border-left:1px solid #ececec; display:flex; flex-direction:column; gap:14px; justify-content:center; }
+  .mock-info-row{ font-size:12.5px; color:#333; display:flex; flex-direction:column; gap:3px; }
+  .mock-info-label{ font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:#a3a3a3; }
+
+  .mock-contact{ display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:22px; background:#fff; }
   .mock-field{ border:1px solid #e2e2e2; border-radius:6px; padding:11px 12px; font-size:12px; color:#a1a1a1; background:#fbfbfb; }
   .mock-field-wide{ grid-column:1 / -1; height:58px; align-items:flex-start; }
   .mock-contact .mock-btn{ grid-column:1 / -1; justify-content:center; }
@@ -1231,6 +1259,19 @@
   .mock-page[data-tpl="void"] .mock-field{ background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.1); color:#7c8aa8; }
   .mock-page[data-tpl="void"] .mock-contact .mock-btn-outline{ background:transparent; border-color:#8fb4ff; color:#8fb4ff; }
   .mock-page[data-tpl="void"] .mock-foot{ background:#080b14; border-top-color:rgba(255,255,255,0.08); color:#5a6580; }
+  .mock-page[data-tpl="void"] .mock-page-head,
+  .mock-page[data-tpl="void"] .mock-home-more{ background:#080b14; }
+  .mock-page[data-tpl="void"] .mock-page-head h4{ color:#fff; }
+  .mock-page[data-tpl="void"] .mock-highlight{ color:#8f9bb8; }
+  .mock-page[data-tpl="void"] .mock-about-story{ color:#8f9bb8; }
+  .mock-page[data-tpl="void"] .mock-stat-row,
+  .mock-page[data-tpl="void"] .mock-team-grid{ background:rgba(255,255,255,0.06); }
+  .mock-page[data-tpl="void"] .mock-stat,
+  .mock-page[data-tpl="void"] .mock-team-card{ background:#0c1020; }
+  .mock-page[data-tpl="void"] .mock-stat-n{ color:#8fb4ff; }
+  .mock-page[data-tpl="void"] .mock-team-name{ color:#e7ecf5; }
+  .mock-page[data-tpl="void"] .mock-contact-info{ background:#0c1020; border-color:rgba(255,255,255,0.08); }
+  .mock-page[data-tpl="void"] .mock-info-row{ color:#c7cfe3; }
 
   /* 2. Diamond Bold — high-energy color-blocked sport */
   .mock-page[data-tpl="diamond"]{ background:#fff; --site-accent:#ff5a2b; }
@@ -1361,6 +1402,19 @@
   .mock-page[data-tpl="blueprint"] .mock-field{ background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:2px; color:#8a93a0; font-family:var(--mono); }
   .mock-page[data-tpl="blueprint"] .mock-contact .mock-btn{ background:#ff9b33; color:#1c2128; border-radius:2px; }
   .mock-page[data-tpl="blueprint"] .mock-foot{ background:#1c2128; color:#6d7580; border-top:1px solid rgba(255,150,50,0.15); font-family:var(--mono); }
+  .mock-page[data-tpl="blueprint"] .mock-page-head,
+  .mock-page[data-tpl="blueprint"] .mock-home-more{ background:#1c2128; }
+  .mock-page[data-tpl="blueprint"] .mock-page-head h4{ color:#fff; font-family:var(--mono); text-transform:uppercase; }
+  .mock-page[data-tpl="blueprint"] .mock-highlight{ color:#8a93a0; font-family:var(--mono); text-transform:uppercase; font-size:10.5px; }
+  .mock-page[data-tpl="blueprint"] .mock-about-story{ color:#8a93a0; }
+  .mock-page[data-tpl="blueprint"] .mock-stat-row,
+  .mock-page[data-tpl="blueprint"] .mock-team-grid{ background:rgba(255,255,255,0.06); }
+  .mock-page[data-tpl="blueprint"] .mock-stat,
+  .mock-page[data-tpl="blueprint"] .mock-team-card{ background:#1c2128; }
+  .mock-page[data-tpl="blueprint"] .mock-stat-n{ color:#ff9b33; font-family:var(--mono); }
+  .mock-page[data-tpl="blueprint"] .mock-team-name{ color:#f0f2f5; }
+  .mock-page[data-tpl="blueprint"] .mock-contact-info{ background:#1c2128; border-color:rgba(255,150,50,0.25); }
+  .mock-page[data-tpl="blueprint"] .mock-info-row{ color:#c7cdd6; font-family:var(--mono); }
 
   /* 8. Mono Studio — minimal, confident, quiet */
   .mock-page[data-tpl="mono"]{ background:#fff; --site-accent:#111; }
@@ -1841,6 +1895,61 @@
       {quote:'Scaled from 10 to 10,000 users with zero downtime.', name:'Leo Frank', role:'CTO'}
     ]
   };
+  /* second-nav-page label per industry — what the "Services" page is actually called */
+  var PAGE2_LABEL = {
+    'Construction':'Services', 'Retail':'Shop', 'Professional Services':'Services',
+    'Manufacturing':'Capabilities', 'Healthcare':'Providers', 'Hospitality':'Menu',
+    'Logistics':'Tracking', 'Technology':'Plans & Pricing'
+  };
+  var PAGE2_SLUG = {
+    'Construction':'services', 'Retail':'shop', 'Professional Services':'services',
+    'Manufacturing':'capabilities', 'Healthcare':'providers', 'Hospitality':'menu',
+    'Logistics':'tracking', 'Technology':'plans-pricing'
+  };
+
+  var ABOUT_CONTENT = {
+    'Construction': {
+      story: 'What started as a two-truck outfit taking on garage additions has grown into a full crew trusted with ground-up commercial builds — but we still quote every job the same way: in person, in writing, no surprises at closeout.',
+      stats: [{n:'18', l:'Years in business'}, {n:'400+', l:'Projects completed'}, {n:'4.9★', l:'Average client rating'}],
+      values: ['Licensed & fully insured', 'One crew from quote to punch list', 'On-time, on-budget — in writing']
+    },
+    'Retail': {
+      story: 'Every piece in the shop is picked, tested, or made by someone who actually works here — we’d rather stock fewer things we’re proud of than fill shelves for the sake of it.',
+      stats: [{n:'12', l:'Years open'}, {n:'6,000+', l:'Orders shipped'}, {n:'4.8★', l:'Customer rating'}],
+      values: ['Hand-picked, small-batch goods', 'Packed & shipped by our own team', 'Easy local pickup & returns']
+    },
+    'Professional Services': {
+      story: 'We started this firm because too many advisors hide behind jargon and hourly bills nobody can predict. Flat fees where it makes sense, plain answers always, and a team that actually picks up the phone.',
+      stats: [{n:'22', l:'Years advising clients'}, {n:'150+', l:'Businesses served'}, {n:'96%', l:'Client retention'}],
+      values: ['Flat-fee packages, no surprise bills', 'Direct access to your advisor', 'Quarterly reviews, not just tax season']
+    },
+    'Manufacturing': {
+      story: 'Three generations in, we still run every job the way the founder did — walk the floor, know the operators by name, and never ship a part we wouldn’t put our own name on.',
+      stats: [{n:'35', l:'Years in operation'}, {n:'50k+', l:'Units shipped last year'}, {n:'99.7%', l:'On-spec first-pass rate'}],
+      values: ['ISO 9001:2015 certified facility', 'In-house tooling & QA', 'Domestic lead times, no overseas delays']
+    },
+    'Healthcare': {
+      story: 'We built this practice around the appointment you actually want — same week, on time, with a provider who reads your chart before walking in the room, not after.',
+      stats: [{n:'15', l:'Years in the community'}, {n:'20,000+', l:'Patients seen'}, {n:'4.9★', l:'Patient rating'}],
+      values: ['Same-week appointments', 'Transparent, upfront pricing', 'A provider who remembers your history']
+    },
+    'Hospitality': {
+      story: 'We opened with eleven tables and a wood-fired oven, and the goal hasn’t changed since: make it feel like the neighborhood spot people plan their week around.',
+      stats: [{n:'9', l:'Years open'}, {n:'40,000+', l:'Guests served'}, {n:'4.8★', l:'Guest rating'}],
+      values: ['Made-from-scratch, every service', 'Private events & group bookings', 'Reservations that actually hold your table']
+    },
+    'Logistics': {
+      story: 'Late freight isn’t a mystery to us — it’s a dispatch problem, and we built this company to solve it: real-time tracking, a dispatch desk that answers, and drivers who treat your freight like their own.',
+      stats: [{n:'14', l:'Years hauling freight'}, {n:'99.4%', l:'On-time delivery rate'}, {n:'24/7', l:'Dispatch coverage'}],
+      values: ['Real-time load tracking', '24/7 dispatch, always answered', 'Dedicated fleet, no broker shuffle']
+    },
+    'Technology': {
+      story: 'We’re a small, senior team that ships — no bloated process, no juniors learning on your dime. If we take the project, one of the founders is writing code on it.',
+      stats: [{n:'8', l:'Years building software'}, {n:'60+', l:'Products shipped'}, {n:'99.98%', l:'Platform uptime'}],
+      values: ['Senior engineers only, no bench', 'Fixed-scope sprints, real deadlines', 'Support from the team that built it']
+    }
+  };
+
   var CHANNELS = [
     {name:'Organic Search', cat:'blue'},
     {name:'Referral',       cat:'orange'},
@@ -2442,49 +2551,112 @@
     '</div>';
   }
 
+  function teamAvatar(name, cat){
+    var initials = name.split(' ').map(function(w){ return w[0]; }).join('');
+    var hex = CAT_HEX[cat];
+    return '<div class="mock-team-avatar" style="background:linear-gradient(135deg,'+hex+', color-mix(in oklab, '+hex+' 65%, black))">'+initials+'</div>';
+  }
+
+  function mockHomePageHtml(biz, content, cta, servicesHtml, showTesti){
+    var about = ABOUT_CONTENT[biz.industry] || ABOUT_CONTENT['Professional Services'];
+    var label = PAGE2_LABEL[biz.industry] || 'Services';
+    return '<div class="mock-hero">'+
+        '<span class="mock-eyebrow">'+biz.industry+'</span>'+
+        '<h4>'+content.headline+'</h4>'+
+        '<p>'+content.sub+'</p>'+
+        '<span class="mock-btn">'+cta+'</span>'+
+      '</div>'+
+      '<div class="mock-highlights">'+
+        about.values.map(function(v){ return '<div class="mock-highlight"><span class="mock-highlight-mark">✓</span>'+v+'</div>'; }).join('') +
+      '</div>'+
+      '<div class="mock-services" id="mockSecServices">'+ servicesHtml +'</div>'+
+      '<div class="mock-home-more"><span class="mock-nav-link mock-btn mock-btn-outline" data-page="services">See all '+label+' →</span></div>'+
+      (showTesti ? mockTestimonialSectionHtml(biz) : '');
+  }
+
+  function mockServicesPageHtml(biz, showFeature){
+    var label = PAGE2_LABEL[biz.industry] || 'Services';
+    return '<div class="mock-page-head"><span class="mock-eyebrow">'+biz.industry+'</span><h4>'+label+'</h4></div>'+
+      (showFeature ? mockFeatureSectionHtml(biz) : '');
+  }
+
+  function mockAboutPageHtml(biz){
+    var about = ABOUT_CONTENT[biz.industry] || ABOUT_CONTENT['Professional Services'];
+    return '<div class="mock-page-head"><span class="mock-eyebrow">About</span><h4>The people behind '+biz.name+'</h4></div>'+
+      '<p class="mock-about-story">'+about.story+'</p>'+
+      '<div class="mock-stat-row">'+
+        about.stats.map(function(s){ return '<div class="mock-stat"><div class="mock-stat-n">'+s.n+'</div><div class="mock-stat-l">'+s.l+'</div></div>'; }).join('') +
+      '</div>'+
+      '<div class="mock-team-grid">'+
+        REPS.slice(0,3).map(function(name,i){
+          var roles = ['Owner / Operator','Team Lead','Client Relations'];
+          return '<div class="mock-team-card">'+teamAvatar(name, biz.cat)+'<div class="mock-team-name">'+name+'</div><div class="mock-team-role">'+roles[i]+'</div></div>';
+        }).join('') +
+      '</div>';
+  }
+
+  function mockContactPageHtml(biz, cta){
+    return '<div class="mock-page-head"><span class="mock-eyebrow">Contact</span><h4>Talk to '+biz.name+'</h4></div>'+
+      '<div class="mock-contact-grid">'+
+        '<div class="mock-contact" id="mockSecContact">'+
+          '<div class="mock-field">Name</div><div class="mock-field">Email</div><div class="mock-field mock-field-wide">How can we help?</div>'+
+          '<span class="mock-btn mock-btn-outline" id="mockSendBtn">Send message</span>'+
+        '</div>'+
+        '<div class="mock-contact-info">'+
+          '<div class="mock-info-row"><span class="mock-info-label">Hours</span><span>Mon–Fri · 8:00 AM – 5:00 PM</span></div>'+
+          '<div class="mock-info-row"><span class="mock-info-label">Phone</span><span>(555) 019-2044</span></div>'+
+          '<div class="mock-info-row"><span class="mock-info-label">Email</span><span>hello@'+biz.domain+'</span></div>'+
+        '</div>'+
+      '</div>';
+  }
+
   function mockWebsiteHtml(biz, content, tpl, opts){
     opts = opts || {};
     var cta = opts.ctaOverride || content.cta;
     var showFeature = opts.showFeature !== false;
     var showTesti = opts.showTesti !== false;
+    var label = PAGE2_LABEL[biz.industry] || 'Services';
     var servicesHtml = opts.gateServices
-      ? '<div class="mock-services-gate"><p>Full service list &amp; pricing shared after a quick contact.</p><span class="mock-nav-link mock-btn mock-btn-outline" data-target="mockSecContact">'+cta+'</span></div>'
+      ? '<div class="mock-services-gate"><p>Full service list &amp; pricing shared after a quick contact.</p><span class="mock-nav-link mock-btn mock-btn-outline" data-page="contact">'+cta+'</span></div>'
       : content.services.map(function(s,i){ return '<div class="mock-service"><span class="mock-service-mark">0'+(i+1)+'</span>'+s+'</div>'; }).join('');
-    return '<div class="mock-browser-bar"><span class="mock-dot" style="background:#e6685a"></span><span class="mock-dot" style="background:#e0b23a"></span><span class="mock-dot" style="background:#4caf6e"></span><span class="mock-url">'+biz.domain+'</span></div>'+
+    return '<div class="mock-browser-bar"><span class="mock-dot" style="background:#e6685a"></span><span class="mock-dot" style="background:#e0b23a"></span><span class="mock-dot" style="background:#4caf6e"></span><span class="mock-url" id="mockUrlBar">'+biz.domain+'</span></div>'+
       '<div class="mock-page" data-tpl="'+tpl.key+'">'+
         '<div class="mock-nav">'+
-          '<span class="mock-nav-brand">'+logoTile(biz)+' '+biz.name+'</span>'+
+          '<span class="mock-nav-link mock-nav-brand" data-page="home">'+logoTile(biz)+' '+biz.name+'</span>'+
           '<div class="mock-nav-links">'+
-            '<span class="mock-nav-link" data-target="mockSecServices">Services</span><span class="mock-nav-sep">·</span>'+
-            '<span class="mock-nav-link" data-target="mockSecProof">Reviews</span><span class="mock-nav-sep">·</span>'+
-            '<span class="mock-nav-link" data-target="mockSecContact">Contact</span>'+
+            '<span class="mock-nav-link active" data-page="home">Home</span><span class="mock-nav-sep">·</span>'+
+            '<span class="mock-nav-link" data-page="services">'+label+'</span><span class="mock-nav-sep">·</span>'+
+            '<span class="mock-nav-link" data-page="about">About</span><span class="mock-nav-sep">·</span>'+
+            '<span class="mock-nav-link" data-page="contact">Contact</span>'+
           '</div>'+
-          '<span class="mock-btn mock-btn-sm">'+cta+'</span>'+
+          '<span class="mock-nav-link mock-btn mock-btn-sm" data-page="contact">'+cta+'</span>'+
         '</div>'+
-        '<div class="mock-hero">'+
-          '<span class="mock-eyebrow">'+biz.industry+'</span>'+
-          '<h4>'+content.headline+'</h4>'+
-          '<p>'+content.sub+'</p>'+
-          '<span class="mock-btn">'+cta+'</span>'+
-        '</div>'+
-        '<div class="mock-services" id="mockSecServices">'+ servicesHtml +'</div>'+
-        (showFeature ? mockFeatureSectionHtml(biz) : '') +
-        (showTesti ? mockTestimonialSectionHtml(biz) : '') +
-        '<div class="mock-contact" id="mockSecContact">'+
-          '<div class="mock-field">Name</div><div class="mock-field">Email</div><div class="mock-field mock-field-wide">How can we help?</div>'+
-          '<span class="mock-btn mock-btn-outline" id="mockSendBtn">Send message</span>'+
-        '</div>'+
+        '<div class="mock-pageview" data-page="home">'+ mockHomePageHtml(biz, content, cta, servicesHtml, showTesti) +'</div>'+
+        '<div class="mock-pageview" data-page="services" hidden>'+ mockServicesPageHtml(biz, showFeature) +'</div>'+
+        '<div class="mock-pageview" data-page="about" hidden>'+ mockAboutPageHtml(biz) +'</div>'+
+        '<div class="mock-pageview" data-page="contact" hidden>'+ mockContactPageHtml(biz, cta) +'</div>'+
         '<div class="mock-foot">Powered by Lykos Intelligence LLC · '+tpl.name+' theme</div>'+
       '</div>';
   }
 
   var testiInterval = null;
   function wireMockInteractivity(root, biz){
-    Array.prototype.forEach.call(root.querySelectorAll('.mock-nav-link'), function(link){
-      link.addEventListener('click', function(){
-        var target = root.querySelector('#'+link.getAttribute('data-target'));
-        if (target) target.scrollIntoView({behavior: demoReduceMotion ? 'auto' : 'smooth', block:'start'});
+    function showPage(page){
+      Array.prototype.forEach.call(root.querySelectorAll('.mock-pageview'), function(pv){
+        pv.hidden = pv.getAttribute('data-page') !== page;
       });
+      Array.prototype.forEach.call(root.querySelectorAll('.mock-nav-link[data-page]'), function(link){
+        link.classList.toggle('active', link.getAttribute('data-page') === page && link.parentElement && link.parentElement.classList.contains('mock-nav-links'));
+      });
+      var urlBar = root.querySelector('#mockUrlBar');
+      var slug = page === 'services' ? (PAGE2_SLUG[biz.industry] || 'services') : page;
+      if (urlBar) urlBar.textContent = biz.domain + (page === 'home' ? '' : '/' + slug);
+      var pageEl = root.querySelector('.mock-page');
+      if (pageEl) pageEl.scrollTop = 0;
+    }
+
+    Array.prototype.forEach.call(root.querySelectorAll('.mock-nav-link[data-page]'), function(link){
+      link.addEventListener('click', function(){ showPage(link.getAttribute('data-page')); });
     });
 
     var slides = root.querySelectorAll('.mock-testi');
