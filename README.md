@@ -1,6 +1,9 @@
 # Lykos Intelligence — Public Site
 
-The public marketing site for Lykos Intelligence: a single self-contained `index.html` covering the hero, product roadmap, and mission, plus a full interactive product demo (pick an industry and a visual theme, then walk through Website & Leads, CRM & Pipeline, Go-to-Market Strategy, Inventory & Cash Flow, Marketing, the Intelligence Layer, and Operational Consulting against 100 simulated businesses).
+The public marketing site for Lykos Intelligence: a single self-contained `index.html` covering the hero, product roadmap, and mission, plus two interactive experiences:
+
+- **Sales demo** (`#/demo/...`) — pick an industry and a visual theme, then walk through Website & Leads, CRM & Pipeline, Go-to-Market Strategy, Inventory & Cash Flow, Marketing, the Intelligence Layer, and Operational Consulting against 100 simulated businesses.
+- **Self-serve website wizard** (`#/build`) — a 16-question multiple-choice intake (plus a business name) that generates a personalized website preview for the Website & Leads tier, with a "request a custom build instead" escape hatch available at every step.
 
 ## Local preview
 

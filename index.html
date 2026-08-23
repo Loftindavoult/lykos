@@ -834,6 +834,58 @@
   #demoApp *{ box-sizing:border-box; }
   #demoApp a{ color:inherit; }
 
+  /* ================= self-serve website wizard (reuses demo tokens) ================= */
+  #buildWizard {
+    --d-bg:#15100f; --d-surface:#1c1413; --d-surface2:#241a18; --d-ink:#f7ede9; --d-ink-dim:#c9b8b3; --d-ink-dimmer:#8a7a75;
+    --d-line: rgba(255,255,255,0.08); --d-accent:#c23a30; --d-accent-soft:#ff9a76;
+    background:var(--d-bg); color:var(--d-ink); font-family:var(--sans); min-height:100vh;
+    color-scheme: dark;
+  }
+  #buildWizard[hidden]{ display:none; }
+  #buildWizard *{ box-sizing:border-box; }
+  #buildWizard a{ color:inherit; }
+  .wiz-top{ position:sticky; top:0; z-index:20; background:color-mix(in oklab, var(--d-bg) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--d-line); padding:14px 28px; }
+  .wiz-top-row{ display:flex; align-items:center; gap:14px; max-width:760px; margin:0 auto; }
+  .wiz-back{ background:transparent; border:1px solid var(--d-line); color:var(--d-ink); width:32px; height:32px; border-radius:8px; cursor:pointer; font-size:15px; flex:none; }
+  .wiz-back:disabled{ opacity:0.3; cursor:not-allowed; }
+  .wiz-back:hover:not(:disabled){ border-color:rgba(255,255,255,0.3); }
+  .wiz-step-label{ font-family:var(--mono); font-size:11px; color:var(--d-ink-dimmer); white-space:nowrap; }
+  .wiz-custom-link{ margin-left:auto; font-family:var(--sans); font-size:12.5px; color:var(--d-ink-dim); text-decoration:none; border-bottom:1px dashed var(--d-line); white-space:nowrap; }
+  .wiz-custom-link:hover{ color:var(--d-ink); border-color:var(--d-ink-dim); }
+  .wiz-progress{ height:3px; background:rgba(255,255,255,0.08); margin-top:12px; max-width:760px; margin-left:auto; margin-right:auto; border-radius:3px; overflow:hidden; }
+  .wiz-progress-fill{ height:100%; background:var(--d-accent); width:0%; transition:width .35s ease; }
+  .wiz-body{ min-height:calc(100vh - 74px); display:flex; align-items:center; justify-content:center; padding:48px 28px; }
+  .wiz-question{ width:100%; max-width:640px; text-align:center; }
+  .wiz-eyebrow{ font-family:var(--serif); font-style:italic; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--d-ink-dimmer); margin:0 0 14px; }
+  .wiz-question h1{ font-family:var(--serif); font-weight:600; font-size:clamp(24px,4vw,32px); margin:0 0 30px; color:#fff; text-wrap:balance; }
+  .wiz-option-list{ display:flex; flex-direction:column; gap:10px; max-width:440px; margin:0 auto; }
+  .wiz-option-btn{
+    font-family:var(--sans); font-size:15px; font-weight:500; color:var(--d-ink); background:rgba(255,255,255,0.02);
+    border:1px solid var(--d-line); border-radius:12px; padding:16px 20px; cursor:pointer; text-align:left;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .wiz-option-btn:hover{ border-color:rgba(255,255,255,0.3); background:rgba(255,255,255,0.05); transform:translateY(-2px); }
+  .wiz-name-input{
+    font-family:var(--sans); font-size:17px; color:var(--d-ink); background:rgba(255,255,255,0.03); border:1px solid var(--d-line);
+    border-radius:12px; padding:16px 18px; width:100%; max-width:420px; text-align:center; outline:none;
+  }
+  .wiz-name-input:focus{ border-color:var(--d-accent); }
+  .wiz-name-continue{ margin-top:18px; }
+  .wiz-generate-head{ text-align:left; }
+  .wiz-final-note{ margin-top:22px; font-size:12.5px; color:var(--d-ink-dimmer); }
+  .wiz-exitgrid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px; text-align:left; }
+  @media (max-width:600px){ .wiz-exitgrid{ grid-template-columns:1fr; } }
+  .wiz-exit-card{ border:1px solid var(--d-line); border-radius:12px; padding:20px 22px; background:rgba(255,255,255,0.02); }
+  .wiz-exit-card.primary{ border-color:color-mix(in oklab, var(--d-accent) 45%, transparent); }
+  .wiz-exit-card h4{ font-family:var(--serif); font-size:16px; margin:0 0 8px; color:#fff; }
+  .wiz-exit-card p{ font-size:13px; color:var(--d-ink-dim); margin:0 0 14px; }
+  .mock-services-gate{ grid-column:1 / -1; padding:22px 18px; text-align:center; background:#fff; }
+  .mock-services-gate p{ margin:0 0 12px; font-size:12.5px; color:#666; }
+  .mock-page[data-tpl="void"] .mock-services-gate,
+  .mock-page[data-tpl="blueprint"] .mock-services-gate{ background:rgba(255,255,255,0.04); }
+  .mock-page[data-tpl="void"] .mock-services-gate p,
+  .mock-page[data-tpl="blueprint"] .mock-services-gate p{ color:#9aa3b8; }
+
   /* theme gate */
   .demo-gate{
     position:fixed; inset:0; z-index:120; background:radial-gradient(circle at 50% 20%, var(--d-surface2) 0%, #0c0908 72%);
@@ -1339,6 +1391,7 @@
   <p class="hero-sub">Lykos Intelligence gives small and growing businesses one real system for pipeline, process, and the signals that actually matter — built for the business you're building, not enterprise bloat.</p>
   <div class="hero-ctas">
     <a class="btn btn-primary" href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20Request%20access"><span class="btn-inner">Request access<span class="btn-arrow">→</span><span class="btn-shine"></span></span></a>
+    <a class="btn btn-ghost" href="#/build">Build your website free</a>
     <a class="btn btn-ghost" href="#platform">See the platform</a>
   </div>
 </section>
@@ -1513,6 +1566,18 @@
 
 <div class="d-tooltip" id="demoTooltip"></div>
 
+<div id="buildWizard" hidden>
+  <div class="wiz-top">
+    <div class="wiz-top-row">
+      <button class="wiz-back" id="wizBackBtn" aria-label="Back">←</button>
+      <span class="wiz-step-label" id="wizStepLabel"></span>
+      <a class="wiz-custom-link" id="wizCustomLink" href="#" target="_blank" rel="noopener">Request a custom build instead →</a>
+    </div>
+    <div class="wiz-progress"><div class="wiz-progress-fill" id="wizProgressFill"></div></div>
+  </div>
+  <div class="wiz-body" id="wizBody"></div>
+</div>
+
 <script>
 (function(){
   "use strict";
@@ -1601,7 +1666,7 @@
 
   function contentVariant(biz){
     var variants = INDUSTRY_CONTENT[biz.industry] || INDUSTRY_CONTENT['Professional Services'];
-    var idx = (state.siteTemplateIndex || 0) % variants.length;
+    var idx = (state.contentVariantIndex != null ? state.contentVariantIndex : (state.siteTemplateIndex || 0)) % variants.length;
     return variants[idx];
   }
 
@@ -2273,7 +2338,14 @@
     '</div>';
   }
 
-  function mockWebsiteHtml(biz, content, tpl){
+  function mockWebsiteHtml(biz, content, tpl, opts){
+    opts = opts || {};
+    var cta = opts.ctaOverride || content.cta;
+    var showFeature = opts.showFeature !== false;
+    var showTesti = opts.showTesti !== false;
+    var servicesHtml = opts.gateServices
+      ? '<div class="mock-services-gate"><p>Full service list &amp; pricing shared after a quick contact.</p><span class="mock-nav-link mock-btn mock-btn-outline" data-target="mockSecContact">'+cta+'</span></div>'
+      : content.services.map(function(s,i){ return '<div class="mock-service"><span class="mock-service-mark">0'+(i+1)+'</span>'+s+'</div>'; }).join('');
     return '<div class="mock-browser-bar"><span class="mock-dot" style="background:#e6685a"></span><span class="mock-dot" style="background:#e0b23a"></span><span class="mock-dot" style="background:#4caf6e"></span><span class="mock-url">'+biz.domain+'</span></div>'+
       '<div class="mock-page" data-tpl="'+tpl.key+'">'+
         '<div class="mock-nav">'+
@@ -2283,19 +2355,17 @@
             '<span class="mock-nav-link" data-target="mockSecProof">Reviews</span><span class="mock-nav-sep">·</span>'+
             '<span class="mock-nav-link" data-target="mockSecContact">Contact</span>'+
           '</div>'+
-          '<span class="mock-btn mock-btn-sm">'+content.cta+'</span>'+
+          '<span class="mock-btn mock-btn-sm">'+cta+'</span>'+
         '</div>'+
         '<div class="mock-hero">'+
           '<span class="mock-eyebrow">'+biz.industry+'</span>'+
           '<h4>'+content.headline+'</h4>'+
           '<p>'+content.sub+'</p>'+
-          '<span class="mock-btn">'+content.cta+'</span>'+
+          '<span class="mock-btn">'+cta+'</span>'+
         '</div>'+
-        '<div class="mock-services" id="mockSecServices">'+
-          content.services.map(function(s,i){ return '<div class="mock-service"><span class="mock-service-mark">0'+(i+1)+'</span>'+s+'</div>'; }).join('') +
-        '</div>'+
-        mockFeatureSectionHtml(biz) +
-        mockTestimonialSectionHtml(biz) +
+        '<div class="mock-services" id="mockSecServices">'+ servicesHtml +'</div>'+
+        (showFeature ? mockFeatureSectionHtml(biz) : '') +
+        (showTesti ? mockTestimonialSectionHtml(biz) : '') +
         '<div class="mock-contact" id="mockSecContact">'+
           '<div class="mock-field">Name</div><div class="mock-field">Email</div><div class="mock-field mock-field-wide">How can we help?</div>'+
           '<span class="mock-btn mock-btn-outline" id="mockSendBtn">Send message</span>'+
@@ -2352,13 +2422,14 @@
     }
   }
 
-  function runBuildSequence(biz, tpl){
-    var consoleEl = document.getElementById('buildConsole');
-    var browserWrap = document.getElementById('mockBrowserWrap');
-    var rebuildBtn = document.getElementById('rebuildBtn');
+  function runBuildSequence(biz, tpl, opts, ids){
+    ids = ids || {};
+    var consoleEl = document.getElementById(ids.console || 'buildConsole');
+    var browserWrap = document.getElementById(ids.browser || 'mockBrowserWrap');
+    var rebuildBtn = ids.rebuild === null ? null : document.getElementById(ids.rebuild || 'rebuildBtn');
     if (!consoleEl || !browserWrap) return;
 
-    rebuildBtn.disabled = true;
+    if (rebuildBtn) rebuildBtn.disabled = true;
     browserWrap.hidden = true;
     browserWrap.classList.remove('revealed');
     consoleEl.hidden = false;
@@ -2366,12 +2437,12 @@
     consoleEl.innerHTML = BUILD_STEPS.map(function(step){
       return '<div class="build-line pending"><span class="build-icon"></span><span class="build-line-text">'+step(biz,tpl)+'</span></div>';
     }).join('') +
-      '<div class="build-progress"><div class="build-progress-fill" id="buildProgressFill"></div></div>'+
-      '<div class="build-pct" id="buildPct">0%</div>';
+      '<div class="build-progress"><div class="build-progress-fill" id="'+(ids.pctFill||'buildProgressFill')+'"></div></div>'+
+      '<div class="build-pct" id="'+(ids.pct||'buildPct')+'">0%</div>';
 
     var lines = Array.prototype.slice.call(consoleEl.querySelectorAll('.build-line'));
-    var pctEl = document.getElementById('buildPct');
-    var fillEl = document.getElementById('buildProgressFill');
+    var pctEl = document.getElementById(ids.pct || 'buildPct');
+    var fillEl = document.getElementById(ids.pctFill || 'buildProgressFill');
 
     function finish(){
       lines.forEach(function(l){ l.className = 'build-line done'; });
@@ -2381,11 +2452,12 @@
         consoleEl.style.opacity = '0';
         setTimeout(function(){
           consoleEl.hidden = true;
-          browserWrap.innerHTML = mockWebsiteHtml(biz, contentVariant(biz), tpl);
+          browserWrap.innerHTML = mockWebsiteHtml(biz, contentVariant(biz), tpl, opts);
           wireMockInteractivity(browserWrap, biz);
           browserWrap.hidden = false;
           requestAnimationFrame(function(){ browserWrap.classList.add('revealed'); });
-          rebuildBtn.disabled = false;
+          if (rebuildBtn) rebuildBtn.disabled = false;
+          if (opts && opts.onDone) opts.onDone();
         }, 320);
       }, demoReduceMotion ? 0 : 420);
     }
@@ -2885,6 +2957,7 @@
   function showDemo(view){
     document.getElementById('marketingRoot').hidden = true;
     document.getElementById('demoApp').hidden = false;
+    document.getElementById('buildWizard').hidden = true;
     document.documentElement.style.overflow = '';
     if (!state.data) {
       document.getElementById('demoGate').classList.remove('hide');
@@ -2895,19 +2968,215 @@
     }
   }
 
-  function hideDemo(){
+  function hideAllOverlays(){
     document.getElementById('marketingRoot').hidden = false;
     document.getElementById('demoApp').hidden = true;
+    document.getElementById('buildWizard').hidden = true;
   }
+
+  /* ================= self-serve website wizard ================= */
+  var wiz = { step:-1, industry:null, theme:null, name:'', answers:{} };
+
+  var WIZ_GOAL_CTA = {
+    'Get phone calls':'Call Now',
+    'Book appointments':'Book an Appointment',
+    'Collect quote requests':'Get a Free Quote',
+    'Sell online':'Shop Now'
+  };
+  var WIZ_TONES = ['Straightforward & professional','Warm & story-driven','Bold & to-the-point'];
+
+  var WIZ_QUESTIONS = [
+    {group:'Business basics', type:'industry', text:'What kind of business are you?'},
+    {group:'Business basics', type:'choice', key:'locations', text:'How many locations do you operate?', options:['Just one','A few (2–5)','Many (6+)']},
+    {group:'Business basics', type:'choice', key:'age', text:'How long have you been in business?', options:['Just starting out','A few years','5+ years, established']},
+    {group:'Business basics', type:'choice', key:'teamSize', text:'How should we describe your team?', options:['Just me','A small team','A full staff']},
+    {group:'Goals', type:'choice', key:'goal', text:'What’s the #1 thing your website should do?', options:['Get phone calls','Book appointments','Collect quote requests','Sell online']},
+    {group:'Goals', type:'choice', key:'urgency', text:'How urgent are most inquiries?', options:['Same-day / emergency','Normal scheduling','No rush, informational']},
+    {group:'Goals', type:'choice', key:'pricing', text:'Show pricing openly, or collect contact info first?', options:['Show it openly','Collect info first','I don’t show pricing']},
+    {group:'Style', type:'theme', text:'Pick a visual style.'},
+    {group:'Style', type:'choice', key:'tone', text:'What tone fits your brand?', options: WIZ_TONES.slice()},
+    {group:'Content & features', type:'choice', key:'portfolio', text:'Show past work or a portfolio gallery?', options:['Yes','No']},
+    {group:'Content & features', type:'choice', key:'testimonials', text:'Show customer reviews or testimonials?', options:['Yes','No']},
+    {group:'Content & features', type:'choice', key:'booking', text:'Do you need online booking or scheduling?', options:['Yes','No']},
+    {group:'Content & features', type:'choice', key:'blog', text:'Do you need a blog or news section?', options:['Yes','No']},
+    {group:'Content & features', type:'choice', key:'extras', text:'Any of these extra features?', options:['Live chat','Quote calculator','Multiple service areas','None of these']},
+    {group:'Contact', type:'choice', key:'contactMethod', text:'Best way for leads to reach you first?', options:['Phone','Email','Contact form','Text / SMS']},
+    {group:'Contact', type:'choice', key:'coverage', text:'Do you serve one area, or more?', options:['One local area','A region or state','Nationwide / online-only']}
+  ];
+  var WIZ_TOTAL_STEPS = WIZ_QUESTIONS.length + 2; /* + business name + generated preview */
+
+  function wizBizFromState(){
+    var name = wiz.name || 'Your Business';
+    var initials = name.replace(/[^A-Za-z ]/g,'').split(' ').filter(Boolean).map(function(w){ return w[0]; }).slice(0,2).join('').toUpperCase() || 'YB';
+    return { name:name, industry: wiz.industry ? wiz.industry.name : 'Professional Services', cat: wiz.industry ? wiz.industry.cat : 'aqua', initials:initials };
+  }
+
+  function wizOptsFromAnswers(){
+    return {
+      ctaOverride: WIZ_GOAL_CTA[wiz.answers.goal] || null,
+      showFeature: wiz.answers.portfolio !== 'No',
+      showTesti: wiz.answers.testimonials !== 'No',
+      gateServices: wiz.answers.pricing === 'Collect info first' || wiz.answers.pricing === 'I don’t show pricing'
+    };
+  }
+
+  function wizSummaryLines(){
+    var lines = [];
+    lines.push('Business name: '+(wiz.name || '(not yet entered)'));
+    lines.push('Industry: '+(wiz.industry ? wiz.industry.name : '(not yet chosen)'));
+    lines.push('Visual style: '+(wiz.theme ? wiz.theme.name : '(not yet chosen)'));
+    WIZ_QUESTIONS.forEach(function(q){
+      if (q.key && wiz.answers[q.key]) lines.push(q.text+' → '+wiz.answers[q.key]);
+    });
+    return lines;
+  }
+
+  function wizMailto(subject, intro){
+    var body = encodeURIComponent([intro, ''].concat(wizSummaryLines()).join('\n'));
+    return 'mailto:loftindavoult@gmail.com?subject='+encodeURIComponent(subject)+'&body='+body;
+  }
+
+  var wizBackBtn, wizStepLabel, wizCustomLink, wizProgressFill, wizBodyEl;
+
+  function wizUpdateChrome(){
+    var n = Math.max(0, wiz.step) + 1;
+    wizStepLabel.textContent = wiz.step < 0 ? '' : ('Step '+Math.min(n, WIZ_TOTAL_STEPS)+' of '+WIZ_TOTAL_STEPS);
+    wizProgressFill.style.width = wiz.step < 0 ? '0%' : (Math.min(n, WIZ_TOTAL_STEPS)/WIZ_TOTAL_STEPS*100)+'%';
+    wizBackBtn.disabled = wiz.step <= 0;
+    wizCustomLink.href = wizMailto('Lykos Intelligence — Custom build request', 'Custom build request from the Lykos self-serve wizard. Whatever was answered so far:');
+  }
+
+  function wizRenderIndustryStep(){
+    wizBodyEl.innerHTML = '<div class="wiz-question"><p class="wiz-eyebrow">Business basics</p><h1>What kind of business are you?</h1><div class="demo-theme-grid" id="wizIndustryGrid" style="margin:0 auto;"></div></div>';
+    var grid = document.getElementById('wizIndustryGrid');
+    INDUSTRIES.forEach(function(ind){
+      var card = document.createElement('div');
+      card.className = 'demo-theme-card';
+      card.innerHTML = '<div class="demo-theme-swatch" style="background:linear-gradient(135deg,'+CAT_HEX[ind.cat]+' 0%, color-mix(in oklab, '+CAT_HEX[ind.cat]+' 55%, black) 100%)"></div><span>'+ind.name+'</span><span class="demo-theme-card-sub">'+ind.examples+'</span>';
+      card.addEventListener('click', function(){ wiz.industry = ind; wizAdvance(); });
+      grid.appendChild(card);
+    });
+  }
+
+  function wizRenderThemeStep(){
+    wizBodyEl.innerHTML = '<div class="wiz-question"><p class="wiz-eyebrow">Style</p><h1>Pick a visual style.</h1><div class="demo-theme-grid" id="wizThemeGrid" style="margin:0 auto;"></div></div>';
+    var grid = document.getElementById('wizThemeGrid');
+    THEMES.forEach(function(t){
+      var card = document.createElement('div');
+      card.className = 'demo-theme-card';
+      card.innerHTML = '<div class="demo-theme-swatch" style="background:linear-gradient(135deg,'+t.accent+' 0%, '+t.surface+' 55%, '+t.bg+' 100%)"></div><span>'+t.name+'</span>';
+      card.addEventListener('click', function(){ wiz.theme = t; wizAdvance(); });
+      grid.appendChild(card);
+    });
+  }
+
+  function wizRenderChoiceStep(q){
+    wizBodyEl.innerHTML = '<div class="wiz-question"><p class="wiz-eyebrow">'+q.group+'</p><h1>'+q.text+'</h1><div class="wiz-option-list" id="wizOptionList"></div></div>';
+    var list = document.getElementById('wizOptionList');
+    q.options.forEach(function(opt){
+      var btn = document.createElement('button');
+      btn.className = 'wiz-option-btn';
+      btn.type = 'button';
+      btn.textContent = opt;
+      btn.addEventListener('click', function(){ wiz.answers[q.key] = opt; wizAdvance(); });
+      list.appendChild(btn);
+    });
+  }
+
+  function wizRenderNameStep(){
+    wizBodyEl.innerHTML = '<div class="wiz-question"><p class="wiz-eyebrow">Last thing</p><h1>What’s your business called?</h1>'+
+      '<input type="text" class="wiz-name-input" id="wizNameInput" placeholder="e.g. Northgate Roofing" autocomplete="off" />'+
+      '<div class="wiz-name-continue"><button class="demo-btn" type="button" id="wizNameContinue">Generate my website →</button></div></div>';
+    var input = document.getElementById('wizNameInput');
+    var go = document.getElementById('wizNameContinue');
+    input.focus();
+    function submit(){
+      var v = input.value.trim();
+      if (!v) { input.focus(); return; }
+      wiz.name = v;
+      wizAdvance();
+    }
+    go.addEventListener('click', submit);
+    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') submit(); });
+  }
+
+  function wizRenderFinalCtas(){
+    var el = document.getElementById('wizFinalCtas');
+    if (!el) return;
+    el.innerHTML = '<div class="wiz-exitgrid">'+
+      '<div class="wiz-exit-card primary"><h4>Request access to launch this</h4><p>We’ll set up a real account and domain around exactly what you just picked — nothing here publishes on its own.</p><a class="demo-btn" href="'+wizMailto('Lykos Intelligence — Launch my website', 'Request to launch the website generated by the self-serve wizard.')+'" target="_blank" rel="noopener">Request access →</a></div>'+
+      '<div class="wiz-exit-card"><h4>Want a person to fine-tune it?</h4><p>Send everything you picked to a real person instead, and we’ll build something more custom around it.</p><a class="demo-btn" href="'+wizMailto('Lykos Intelligence — Custom build request', 'Custom build request from the Lykos self-serve wizard.')+'" target="_blank" rel="noopener">Request a custom build →</a></div>'+
+    '</div>'+
+    '<p class="wiz-final-note">This is a live preview only — no domain or hosting is set up until a real account exists.</p>';
+  }
+
+  function wizRenderGenerateStep(){
+    var biz = wizBizFromState();
+    biz.domain = bizDomain(biz);
+    var toneIdx = WIZ_TONES.indexOf(wiz.answers.tone);
+    state.contentVariantIndex = toneIdx >= 0 ? toneIdx : 0;
+    var tpl = SITE_TEMPLATES[Math.max(0, THEMES.indexOf(wiz.theme))];
+
+    wizBodyEl.innerHTML = '<div class="wiz-question wiz-generate-head" style="max-width:720px;">'+
+      '<p class="wiz-eyebrow" style="text-align:left;">Building it now</p>'+
+      '<h1 style="text-align:left;">Generating '+biz.name+'’s website…</h1>'+
+      '<div class="build-console" id="wizBuildConsole"></div>'+
+      '<div class="mock-browser build-reveal" id="wizMockBrowserWrap" hidden></div>'+
+      '<div id="wizFinalCtas"></div>'+
+    '</div>';
+
+    var opts = wizOptsFromAnswers();
+    opts.onDone = wizRenderFinalCtas;
+    runBuildSequence(biz, tpl, opts, {console:'wizBuildConsole', browser:'wizMockBrowserWrap', rebuild:null, pct:'wizBuildPct', pctFill:'wizBuildProgressFill'});
+  }
+
+  function wizRender(){
+    wizUpdateChrome();
+    if (wiz.step < 0) return;
+    if (wiz.step < WIZ_QUESTIONS.length) {
+      var q = WIZ_QUESTIONS[wiz.step];
+      if (q.type === 'industry') wizRenderIndustryStep();
+      else if (q.type === 'theme') wizRenderThemeStep();
+      else wizRenderChoiceStep(q);
+    } else if (wiz.step === WIZ_QUESTIONS.length) {
+      wizRenderNameStep();
+    } else {
+      wizRenderGenerateStep();
+    }
+  }
+
+  function wizAdvance(){ wiz.step++; wizRender(); }
+  function wizRetreat(){ if (wiz.step <= 0) return; wiz.step--; wizRender(); }
+
+  function startWizard(){
+    wiz.step = 0; wiz.industry = null; wiz.theme = null; wiz.name = ''; wiz.answers = {};
+    document.getElementById('marketingRoot').hidden = true;
+    document.getElementById('demoApp').hidden = true;
+    document.getElementById('buildWizard').hidden = false;
+    document.documentElement.style.overflow = '';
+    wizRender();
+  }
+
+  function isBuildHash(){ return location.hash === '#/build'; }
+
+  window.addEventListener('DOMContentLoaded', function(){
+    wizBackBtn = document.getElementById('wizBackBtn');
+    wizStepLabel = document.getElementById('wizStepLabel');
+    wizCustomLink = document.getElementById('wizCustomLink');
+    wizProgressFill = document.getElementById('wizProgressFill');
+    wizBodyEl = document.getElementById('wizBody');
+    wizBackBtn.addEventListener('click', wizRetreat);
+
+    var view = parseHash();
+    if (view) showDemo(view);
+    else if (isBuildHash()) startWizard();
+  });
 
   window.addEventListener('hashchange', function(){
     var view = parseHash();
-    if (view) showDemo(view); else hideDemo();
-  });
-
-  window.addEventListener('DOMContentLoaded', function(){
-    var view = parseHash();
     if (view) showDemo(view);
+    else if (isBuildHash()) startWizard();
+    else hideAllOverlays();
   });
 })();
 </script>
