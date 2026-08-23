@@ -759,6 +759,24 @@
     color: var(--ink);
   }
 
+  /* ---------- portfolio ---------- */
+
+  .portfolio-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+  .portfolio-card {
+    border: 1px solid var(--line); border-radius: 12px; padding: 32px;
+    background: var(--paper-2); display: flex; flex-direction: column; gap: 14px;
+  }
+  .portfolio-swatches { display: flex; gap: 8px; }
+  .portfolio-swatches span { width: 22px; height: 22px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.08); display: inline-block; }
+  .portfolio-card h3 { font-family: var(--serif); font-weight: 600; font-size: 21px; color: var(--ink); margin: 0; letter-spacing: -0.01em; }
+  .portfolio-tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .portfolio-tag {
+    font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 999px; background: var(--paper); color: var(--ink-dim); border: 1px solid var(--line);
+  }
+  .portfolio-desc { font-size: 14.5px; color: var(--ink-dim); line-height: 1.65; max-width: 60ch; margin: 0; }
+  .portfolio-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+
   /* ---------- final cta ---------- */
 
   .cta-band {
@@ -885,6 +903,33 @@
   .mock-page[data-tpl="blueprint"] .mock-services-gate{ background:rgba(255,255,255,0.04); }
   .mock-page[data-tpl="void"] .mock-services-gate p,
   .mock-page[data-tpl="blueprint"] .mock-services-gate p{ color:#9aa3b8; }
+
+  /* ================= Holliday Creek portfolio demo login (own brand palette, not the Lykos red) ================= */
+  #hcLoginGate{
+    position:fixed; inset:0; z-index:200; padding:40px; display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(circle at 50% 20%, #3a2416 0%, #150d08 75%); font-family:var(--sans);
+  }
+  #hcLoginGate[hidden]{ display:none; }
+  #hcLoginGate *{ box-sizing:border-box; }
+  .hc-card{ width:100%; max-width:380px; text-align:center; }
+  .hc-brand{ font-family:var(--serif); font-weight:600; font-size:24px; color:#f4eedd; letter-spacing:-0.01em; }
+  .hc-sub{ font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.14em; color:#cbb99a; margin:6px 0 28px; }
+  .hc-input{
+    display:block; width:100%; margin-bottom:12px; padding:13px 16px; border-radius:8px;
+    border:1px solid rgba(244,238,221,0.18); background:rgba(244,238,221,0.05); color:#f4eedd; font-size:14px; outline:none;
+    font-family:var(--sans);
+  }
+  .hc-input::placeholder{ color:#8f7d63; }
+  .hc-input:focus{ border-color:#a67c3d; }
+  .hc-submit{
+    width:100%; padding:13px 16px; border-radius:8px; border:none; background:#a67c3d; color:#1b120c;
+    font-family:var(--sans); font-weight:600; font-size:14px; cursor:pointer; margin-top:4px; transition:background .15s ease;
+  }
+  .hc-submit:hover{ background:#c79a55; }
+  .hc-submit.loading{ opacity:0.75; cursor:wait; }
+  .hc-note{ font-size:11.5px; color:#8f7d63; margin:20px 0 0; line-height:1.6; }
+  .hc-back{ display:inline-block; margin-top:18px; font-family:var(--mono); font-size:11px; color:#cbb99a; text-decoration:none; border-bottom:1px dashed rgba(203,185,154,0.4); }
+  .hc-back:hover{ color:#f4eedd; }
 
   /* theme gate */
   .demo-gate{
@@ -1374,6 +1419,7 @@
     <div class="nav-links">
       <div class="nav-links-mid" style="display:flex; gap:34px;">
         <a href="#platform">Platform</a>
+        <a href="#portfolio">Portfolio</a>
         <a href="#mission">Why Lykos</a>
       </div>
       <a class="btn btn-primary" href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20Request%20access"><span class="btn-inner">Request access<span class="btn-arrow">→</span><span class="btn-shine"></span></span></a>
@@ -1461,6 +1507,27 @@
         </div>
         <p>Consulting-grade thinking, requested when a business wants us to come in and help run the operation — not a seven-figure engagement to get it.</p>
         <a class="stage-demo-link" href="#/demo/consulting">Explore this capability</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="portfolio">
+  <div class="band-head reveal">
+    <p class="eyebrow">Client work</p>
+    <h2 style="color:var(--ink);">Real builds, not just a roadmap.</h2>
+  </div>
+  <div class="portfolio-grid reveal">
+    <div class="portfolio-card">
+      <div class="portfolio-swatches">
+        <span style="background:#2E1B12"></span><span style="background:#2F3B2A"></span><span style="background:#A67C3D"></span><span style="background:#EDE3CE"></span>
+      </div>
+      <h3>Holliday Creek Hat Co</h3>
+      <div class="portfolio-tag-row"><span class="portfolio-tag">Retail</span><span class="portfolio-tag">Storefront + Booking + CRM</span></div>
+      <p class="portfolio-desc">A hand-blocked hat maker's full stack — public storefront, fitting reservations, and a staff CRM that fills up straight from the site's own forms. No demo data here; this one runs the actual business.</p>
+      <div class="portfolio-ctas">
+        <a class="btn btn-ghost" href="#" id="hcLiveSiteLink" target="_blank" rel="noopener">View the live site →</a>
+        <button type="button" class="btn btn-ghost" id="hcDemoOpenBtn">See the CRM in action →</button>
       </div>
     </div>
   </div>
@@ -1578,6 +1645,20 @@
   <div class="wiz-body" id="wizBody"></div>
 </div>
 
+<div id="hcLoginGate" hidden>
+  <div class="hc-card">
+    <div class="hc-brand">Holliday Creek Hat Co</div>
+    <p class="hc-sub">Staff Portal</p>
+    <form id="hcLoginForm">
+      <input type="email" class="hc-input" placeholder="you@hollidaycreek.com" autocomplete="off">
+      <input type="password" class="hc-input" placeholder="Password" autocomplete="off">
+      <button type="submit" class="hc-submit">Sign in</button>
+    </form>
+    <p class="hc-note">Demo login — sample data only, not connected to Holliday Creek Hat Co's real account.</p>
+    <a class="hc-back" id="hcBackLink" href="#top">← Back to Lykos Intelligence</a>
+  </div>
+</div>
+
 <script>
 (function(){
   "use strict";
@@ -1600,6 +1681,12 @@
     {key:'blueprint', name:'Blueprint Works',bg:'#14181e', surface:'#1c2128', surface2:'#242a32', ink:'#f0f2f5', inkDim:'#a7b0bc', inkDimmer:'#6d7580', accent:'#ff9b33', accentSoft:'#ffbb70'},
     {key:'mono',      name:'Mono Studio',    bg:'#0d0d0d', surface:'#161616', surface2:'#1f1f1f', ink:'#f5f5f5', inkDim:'#b3b3b3', inkDimmer:'#787878', accent:'#e5e5e5', accentSoft:'#ffffff'}
   ];
+
+  /* Portfolio case-study theme — Holliday Creek Hat Co's real brand palette
+     (mahogany/hunter green/brass/cream, "Style Six — The Lounge"). Kept out
+     of the public THEMES picker above since it belongs to one named client,
+     not a generic style option. */
+  var HC_THEME = { key:'hollidaycreek', name:'Holliday Creek', bg:'#1b120c', surface:'#2e1b12', surface2:'#3a2416', ink:'#f4eedd', inkDim:'#cbb99a', inkDimmer:'#8f7d63', accent:'#a67c3d', accentSoft:'#d4b06a' };
 
   var CAT_HEX = { blue:'#3987e5', orange:'#d95926', aqua:'#199e70', yellow:'#c98500', magenta:'#d55181', green:'#008300', violet:'#9085e9', red:'#e66767' };
   var CAT_VAR = { blue:'var(--d-cat-blue)', orange:'var(--d-cat-orange)', aqua:'var(--d-cat-aqua)', yellow:'var(--d-cat-yellow)', magenta:'var(--d-cat-magenta)', green:'var(--d-cat-green)', violet:'var(--d-cat-violet)', red:'var(--d-cat-red)' };
@@ -1872,6 +1959,23 @@
     document.getElementById('demoGate').classList.add('hide');
     document.getElementById('demoIndustryTag').textContent = '🏢 ' + state.industry;
     renderView(state.view || 'crm');
+  }
+
+  /* ---------------- portfolio case study: Holliday Creek Hat Co ---------------- */
+  function enterHollidayCreekDemo(){
+    state.myBusiness = { name:'Holliday Creek Hat Co', industry:'Retail', cat:'orange', initials:'HC' };
+    state.industry = 'Retail';
+    state.theme = HC_THEME;
+    applyTheme(HC_THEME);
+    state.siteTemplateIndex = 0;
+    if (!state.data) state.data = generateData();
+    document.getElementById('demoGate').classList.add('hide');
+    document.getElementById('demoIndustryTag').textContent = '🏢 Holliday Creek Hat Co';
+    document.getElementById('marketingRoot').hidden = true;
+    document.getElementById('buildWizard').hidden = true;
+    document.getElementById('demoApp').hidden = false;
+    document.documentElement.style.overflow = '';
+    renderView('crm');
   }
 
   document.getElementById('demoThemeBtn').addEventListener('click', function(){
@@ -3166,6 +3270,28 @@
     wizProgressFill = document.getElementById('wizProgressFill');
     wizBodyEl = document.getElementById('wizBody');
     wizBackBtn.addEventListener('click', wizRetreat);
+
+    var hcOpenBtn = document.getElementById('hcDemoOpenBtn');
+    var hcGate = document.getElementById('hcLoginGate');
+    var hcForm = document.getElementById('hcLoginForm');
+    var hcBack = document.getElementById('hcBackLink');
+    if (hcOpenBtn) hcOpenBtn.addEventListener('click', function(){ hcGate.hidden = false; });
+    if (hcForm) hcForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var btn = hcForm.querySelector('.hc-submit');
+      btn.textContent = 'Signing in…';
+      btn.classList.add('loading');
+      btn.disabled = true;
+      setTimeout(function(){
+        hcGate.hidden = true;
+        btn.textContent = 'Sign in';
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        hcForm.reset();
+        enterHollidayCreekDemo();
+      }, 650);
+    });
+    if (hcBack) hcBack.addEventListener('click', function(e){ e.preventDefault(); hcGate.hidden = true; });
 
     var view = parseHash();
     if (view) showDemo(view);
