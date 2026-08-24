@@ -2,6 +2,7 @@
 
 **Session code:** `082126GW2929`
 **SOS Document #:** `1621168920002`
+**SOS Filing #:** `806760459` — **FILED, effective 2026-08-21** (approved 2026-08-24)
 
 Reference record for reviewing this brief/case in the future.
 
@@ -15,11 +16,9 @@ Reference record for reviewing this brief/case in the future.
 
 ## Status at time of record
 
-- **SUBMITTED 2026-08-21** via SOSDirect web filing (Form 205), transaction receipt received
-  - Session ID: 082126GW2929 · Document #: 1621168920002
-  - Pending Secretary of State review for statutory compliance; email notification on filing or rejection
-  - Track at: https://webservices.sos.state.tx.us/filing-status/status.aspx
-  - Approved documents will appear in the SOSDirect Briefcase
+- **FILED** — Certificate of Formation approved by the Texas Secretary of State on 2026-08-24 (Filing #806760459), effective as of submission 2026-08-21
+  - Submitted 2026-08-21 via SOSDirect web filing (Form 205); Session ID: 082126GW2929 · Document #: 1621168920002
+  - File-stamped certificate available in the SOSDirect Briefcase and via the "view" link on the Business Filing Tracker: https://webservices.sos.state.tx.us/filing-status/status.aspx
 - Post-approval checklist: EIN (irs.gov, free), operating agreement, business bank account, Texas Public Information Report due each May 15 starting the year after formation
 
 ## Documents
