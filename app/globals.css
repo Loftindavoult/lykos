@@ -114,7 +114,7 @@ a { color: inherit; }
 }
 
 .btn-primary { background: linear-gradient(180deg, var(--red-bright), var(--red-mid)); color: #fff; }
-.btn-primary:disabled { opacity: 0.6; cursor: wait; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-block { width: 100%; }
 .btn-ghost { background: transparent; border: 1px solid var(--dark-line); color: var(--dark-ink); }
 .btn-ghost:hover { border-color: var(--red-bright); color: var(--red-bright); }
