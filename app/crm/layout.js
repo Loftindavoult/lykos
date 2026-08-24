@@ -18,6 +18,7 @@ export default async function CrmLayout({ children }) {
           <a href="/crm">Pipeline</a>
           <a href="/crm/gtm">GTM Strategy</a>
           <a href="/crm/marketing">Marketing</a>
+          <a href="/crm/intelligence">Intelligence</a>
           <a href="/">← Marketing site</a>
         </nav>
         <div className="crm-user">
