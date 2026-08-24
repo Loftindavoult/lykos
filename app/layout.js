@@ -1,4 +1,5 @@
 import "./globals.css";
+import NetworkBackground from "@/components/NetworkBackground";
 
 export const metadata = {
   title: "Lykos Intelligence",
@@ -16,7 +17,10 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <NetworkBackground />
+        {children}
+      </body>
     </html>
   );
 }
