@@ -1476,7 +1476,7 @@
         <a href="#portfolio">Portfolio</a>
         <a href="#mission">Why Lykos</a>
       </div>
-      <a class="btn btn-primary" href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20Request%20access"><span class="btn-inner">Request access<span class="btn-arrow">→</span><span class="btn-shine"></span></span></a>
+      <a class="btn btn-primary" onclick="siteRequestAccess('nav')" href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20Request%20access"><span class="btn-inner">Request access<span class="btn-arrow">→</span><span class="btn-shine"></span></span></a>
     </div>
   </div>
 </nav>
@@ -1490,7 +1490,7 @@
   <h1>Track the money. Track the process. <em>Run the business.</em></h1>
   <p class="hero-sub">Lykos Intelligence gives small and growing businesses one real system for pipeline, process, and the signals that actually matter — built for the business you're building, not enterprise bloat.</p>
   <div class="hero-ctas">
-    <a class="btn btn-primary" href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20Request%20access"><span class="btn-inner">Request access<span class="btn-arrow">→</span><span class="btn-shine"></span></span></a>
+    <a class="btn btn-primary" onclick="siteRequestAccess('hero')" href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20Request%20access"><span class="btn-inner">Request access<span class="btn-arrow">→</span><span class="btn-shine"></span></span></a>
     <a class="btn btn-ghost" href="#/build">Build your website free</a>
     <a class="btn btn-ghost" href="#platform">See the platform</a>
   </div>
@@ -1609,7 +1609,7 @@
     <h2>Invite-only, by design.</h2>
     <p>No public signup — every account starts with a real conversation. Tell us about your business and we'll set you up.</p>
     <div class="hero-ctas">
-      <a class="btn" style="background:#fff5f3; color:var(--red-deep);" href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20Request%20access">Request access</a>
+      <a class="btn" style="background:#fff5f3; color:var(--red-deep);" onclick="siteRequestAccess('cta-band')" href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20Request%20access">Request access</a>
       <a class="btn btn-ghost-dark" href="#top">Back to top</a>
     </div>
   </div>
@@ -1670,7 +1670,7 @@
       <span class="d-foot-power"><b>Powered by Lykos Intelligence LLC</b> · This is a simulated demo environment</span>
       <div class="d-foot-links">
         <a href="#top">Main site</a>
-        <a href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20Request%20access">Request access</a>
+        <a href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20Request%20access" onclick="siteRequestAccess('demo footer')">Request access</a>
       </div>
     </div>
   </footer>
@@ -3314,7 +3314,9 @@
 
   /* Fire-and-forget: also create a real CRM lead alongside the mailto fallback.
      If /api/leads doesn't exist in this context (e.g. a static preview with no
-     backend), this silently fails and the mailto link still works exactly as before. */
+     backend), this silently fails and the mailto link still works exactly as before.
+     The wizard represents someone who picked/generated an actual website — real
+     intent, not a passive click — so it starts at Warm Lead instead of Cold Lead. */
   function wizSubmitLead(intro){
     try {
       fetch('/api/leads', {
@@ -3324,7 +3326,26 @@
           companyName: wiz.name || 'Untitled (self-serve wizard)',
           industry: wiz.industry ? wiz.industry.name : null,
           source: 'wizard',
+          stage: 'Warm Lead',
           notes: [intro, ''].concat(wizSummaryLines()).join('\n')
+        })
+      }).catch(function(){});
+    } catch (e) {}
+  }
+
+  /* Same fire-and-forget pattern for every plain "Request access" mailto touchpoint
+     sitewide (nav, hero, cta-band, demo footer) — a passive one-click ask, so it
+     starts cold rather than warm. mailto still fires as the fallback either way. */
+  function siteRequestAccess(location){
+    try {
+      fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          companyName: 'Website inquiry — ' + location,
+          source: 'website',
+          stage: 'Cold Lead',
+          notes: 'Clicked "Request access" in the ' + location + '.'
         })
       }).catch(function(){});
     } catch (e) {}

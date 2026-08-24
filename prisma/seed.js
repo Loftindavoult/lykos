@@ -22,6 +22,13 @@ async function main() {
   });
   console.log(`Staff user ready: ${staffEmail} / ${staffPassword}`);
 
+  // Phase 2 renamed the stage taxonomy (Lead -> Cold Lead, Contacted -> Warm
+  // Lead) so any accounts created under the old names before this shipped
+  // don't silently vanish from the new Kanban board. Idempotent: once
+  // remapped, no rows match the old names again.
+  await db.account.updateMany({ where: { stage: "Lead" }, data: { stage: "Cold Lead" } });
+  await db.account.updateMany({ where: { stage: "Contacted" }, data: { stage: "Warm Lead" } });
+
   // Self-healing: if a database predates the admin/staff role split (or an
   // admin was somehow removed), promote the earliest-created login so the
   // team always has at least one admin able to manage other logins.
