@@ -33,15 +33,29 @@ html, body {
 
 a { color: inherit; }
 
+/* ---------- ambient particle-network backdrop (mirrors the marketing
+   site's hero/preloader canvas) — fixed behind every page; solid panels
+   simply paint over it, so nothing else needs to know it's there. ---------- */
+
+.network-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--dark);
+}
+.network-bg canvas { width: 100%; height: 100%; opacity: 0.9; }
+
 /* ---------- auth ---------- */
 
 .auth-wrap {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 40px 24px;
-  background: var(--dark);
 }
 
 .auth-card {
@@ -131,7 +145,7 @@ a { color: inherit; }
 
 /* ---------- crm shell ---------- */
 
-.crm-shell { display: flex; min-height: 100vh; background: var(--dark); }
+.crm-shell { position: relative; z-index: 1; display: flex; min-height: 100vh; }
 
 .crm-sidebar {
   width: 220px;
