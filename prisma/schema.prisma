@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model StaffUser {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  name         String
+  role         String     @default("staff") // "admin" | "staff"
+  passwordHash String
+  createdAt    DateTime   @default(now())
+  activities   Activity[]
+  tasks        Task[]
+}
+
+model Account {
+  id            String     @id @default(cuid())
+  companyName   String
+  contactName   String?
+  email         String?
+  phone         String?
+  industry      String?
+  stage         String     @default("Lead") // Lead | Contacted | Qualified | Proposal | Won | Lost
+  source        String     @default("manual") // website | wizard | manual
+  value         Int? // deal value in whole dollars
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  activities    Activity[]
+  tasks         Task[]
+}
+
+model Activity {
+  id          String    @id @default(cuid())
+  accountId   String
+  account     Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  type        String    // Call | Email | Meeting | Note
+  text        String
+  staffUserId String?
+  staffUser   StaffUser? @relation(fields: [staffUserId], references: [id])
+  createdAt   DateTime  @default(now())
+}
+
+model Task {
+  id          String    @id @default(cuid())
+  accountId   String
+  account     Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  text        String
+  dueDate     DateTime?
+  done        Boolean   @default(false)
+  staffUserId String?
+  staffUser   StaffUser? @relation(fields: [staffUserId], references: [id])
+  createdAt   DateTime  @default(now())
+}
