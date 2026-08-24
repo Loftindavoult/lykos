@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { db } from "@/lib/db";
 import { createAccount } from "@/lib/actions/crm";
+import PipelineBoard from "@/components/PipelineBoard";
 
 export const dynamic = "force-dynamic";
 
@@ -12,7 +12,10 @@ function money(n) {
 export default async function CrmDashboard() {
   const accounts = await db.account.findMany({
     orderBy: { updatedAt: "desc" },
-    include: { activities: { orderBy: { createdAt: "desc" }, take: 1 } },
+    include: {
+      activities: { orderBy: { createdAt: "desc" } },
+      tasks: { orderBy: { createdAt: "desc" } },
+    },
   });
 
   const open = accounts.filter((a) => a.stage !== "Won" && a.stage !== "Lost");
@@ -29,8 +32,10 @@ export default async function CrmDashboard() {
   return (
     <>
       <div className="crm-head">
-        <h1>Pipeline</h1>
-        <p>Lykos Intelligence's own sales pipeline — real accounts, real activity.</p>
+        <div>
+          <h1>Pipeline</h1>
+          <p>Lykos Intelligence's own sales pipeline — real accounts, real activity.</p>
+        </div>
       </div>
 
       <div className="stat-row">
@@ -74,45 +79,15 @@ export default async function CrmDashboard() {
         </form>
       </div>
 
-      <div className="panel">
-        <div className="panel-head">
-          <h3>Accounts</h3>
-        </div>
-        {accounts.length === 0 ? (
+      {accounts.length === 0 ? (
+        <div className="panel">
           <div className="empty-row">
             No accounts yet — add one above, or wait for the website/wizard to send the first lead.
           </div>
-        ) : (
-          <table className="crm-table">
-            <thead>
-              <tr>
-                <th>Company</th>
-                <th>Stage</th>
-                <th>Industry</th>
-                <th>Value</th>
-                <th>Source</th>
-                <th>Last activity</th>
-              </tr>
-            </thead>
-            <tbody>
-              {accounts.map((a) => (
-                <tr key={a.id}>
-                  <td>
-                    <Link href={`/crm/${a.id}`}>{a.companyName}</Link>
-                  </td>
-                  <td>
-                    <span className={`badge badge-${a.stage}`}>{a.stage}</span>
-                  </td>
-                  <td>{a.industry || "—"}</td>
-                  <td>{money(a.value)}</td>
-                  <td>{a.source}</td>
-                  <td>{a.activities[0] ? new Date(a.activities[0].createdAt).toLocaleDateString() : "—"}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+        </div>
+      ) : (
+        <PipelineBoard accounts={accounts} />
+      )}
     </>
   );
 }

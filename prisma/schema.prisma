@@ -16,6 +16,8 @@ model StaffUser {
   createdAt    DateTime   @default(now())
   activities   Activity[]
   tasks        Task[]
+  connectedSocialAccounts SocialAccount[]
+  socialPosts  SocialPost[]
 }
 
 model Account {
@@ -55,4 +57,40 @@ model Task {
   staffUserId String?
   staffUser   StaffUser? @relation(fields: [staffUserId], references: [id])
   createdAt   DateTime  @default(now())
+}
+
+model Campaign {
+  id        String   @id @default(cuid())
+  name      String
+  channel   String   // e.g. website | wizard | facebook | linkedin | referral
+  spend     Int?     // whole dollars
+  createdAt DateTime @default(now())
+}
+
+model SocialAccount {
+  id                String    @id @default(cuid())
+  platform          String    @unique // "facebook" | "linkedin"
+  externalAccountId String
+  accessToken       String
+  refreshToken      String?
+  expiresAt         DateTime?
+  connectedByStaffId String?
+  connectedByStaff  StaffUser? @relation(fields: [connectedByStaffId], references: [id])
+  createdAt         DateTime  @default(now())
+  posts             SocialPost[]
+}
+
+model SocialPost {
+  id              String    @id @default(cuid())
+  platform        String    // "facebook" | "linkedin"
+  socialAccountId String?
+  socialAccount   SocialAccount? @relation(fields: [socialAccountId], references: [id], onDelete: SetNull)
+  caption         String
+  scheduledAt     DateTime
+  status          String    @default("draft") // draft | scheduled | posted | failed
+  externalPostId  String?
+  failureReason   String?
+  createdByStaffId String?
+  createdByStaff  StaffUser? @relation(fields: [createdByStaffId], references: [id])
+  createdAt       DateTime  @default(now())
 }
