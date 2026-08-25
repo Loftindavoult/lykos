@@ -3,12 +3,8 @@
 import { useMemo, useState, useTransition } from "react";
 import { advanceStage } from "@/lib/actions/crm";
 import { STAGES, nextStage } from "@/lib/crmConstants";
+import { calculateStripeFee, money, money2 } from "@/lib/pricing";
 import AccountDetailModal from "./AccountDetailModal";
-
-function money(n) {
-  if (n == null) return "—";
-  return "$" + n.toLocaleString("en-US");
-}
 
 function LeadCard({ account, onOpen }) {
   const [pending, startTransition] = useTransition();
@@ -31,6 +27,11 @@ function LeadCard({ account, onOpen }) {
         {lastActivity ? ` · last touch ${new Date(lastActivity.createdAt).toLocaleDateString()}` : ""}
       </div>
       <div className="lead-card-value">{account.mrr ? `${money(account.mrr)}/mo MRR` : "No MRR set"}</div>
+      {account.mrr > 0 && (
+        <div className="lead-card-net">
+          ≈ {money2(account.mrr - calculateStripeFee(account.mrr, account.billingMethod))} net after {account.billingMethod === "ach" ? "ACH" : "card"} fee
+        </div>
+      )}
       {next && (
         <button
           type="button"

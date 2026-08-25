@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { createAccount } from "@/lib/actions/crm";
+import { calculateStripeFee, money2 } from "@/lib/pricing";
 import PipelineBoard from "@/components/PipelineBoard";
 import StatCounter from "@/components/StatCounter";
 
@@ -23,7 +24,10 @@ export default async function CrmDashboard() {
   const openValue = open.reduce((s, a) => s + (a.value || 0), 0);
   const decided = won.length + lost.length;
   const winRate = decided ? Math.round((won.length / decided) * 100) : 0;
-  const activeMrr = accounts.filter((a) => a.stage === "Active").reduce((s, a) => s + (a.mrr || 0), 0);
+  const activeAccounts = accounts.filter((a) => a.stage === "Active");
+  const activeMrr = activeAccounts.reduce((s, a) => s + (a.mrr || 0), 0);
+  const activeFees = activeAccounts.reduce((s, a) => s + calculateStripeFee(a.mrr || 0, a.billingMethod), 0);
+  const activeNetMrr = activeMrr - activeFees;
 
   const overdueTasks = await db.task.count({
     where: { done: false, dueDate: { lt: new Date() } },
@@ -74,7 +78,7 @@ export default async function CrmDashboard() {
           <div className="stat-value">
             <StatCounter value={activeMrr} prefix="$" />
           </div>
-          <div className="stat-sub">{accounts.filter((a) => a.stage === "Active").length} active accounts</div>
+          <div className="stat-sub">{activeAccounts.length} active · {money2(activeNetMrr)} net after fees</div>
         </div>
       </div>
 
