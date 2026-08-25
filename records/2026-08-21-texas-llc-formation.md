@@ -23,4 +23,7 @@ Reference record for reviewing this brief/case in the future.
 
 ## Documents
 
+- [`sos-filing-806760459/Certificate.pdf`](./sos-filing-806760459/Certificate.pdf) — official Certificate of Filing, sealed and signed by the Secretary of State, dated and effective 08/21/2026
+- [`sos-filing-806760459/Original_Document.pdf`](./sos-filing-806760459/Original_Document.pdf) — file-stamped Certificate of Formation as filed
+- [`sos-filing-806760459/Acknowledgment.pdf`](./sos-filing-806760459/Acknowledgment.pdf) — SOS filing acknowledgment
 - [`Lykos-Intelligence-LLC-Company-Agreement.docx`](./Lykos-Intelligence-LLC-Company-Agreement.docx) — single-member company agreement (Texas BOC § 101.052), drafted 2026-08-21. Yellow-highlighted placeholders (member name, addresses, effective date, initial capital contribution) must be completed before signing. Not legal advice.
