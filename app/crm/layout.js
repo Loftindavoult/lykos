@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { logout } from "@/lib/actions/auth";
+import NavLink from "@/components/NavLink";
 
 export const metadata = { title: "CRM — Lykos Intelligence" };
 
@@ -15,14 +16,14 @@ export default async function CrmLayout({ children }) {
           LYKOS <em>Intelligence</em>
         </div>
         <nav className="crm-nav">
-          <a href="/crm">Pipeline</a>
-          <a href="/crm/gtm">GTM Strategy</a>
-          <a href="/crm/marketing">Marketing</a>
-          <a href="/crm/intelligence">Intelligence</a>
+          <NavLink href="/crm" exact>Pipeline</NavLink>
+          <NavLink href="/crm/gtm">GTM Strategy</NavLink>
+          <NavLink href="/crm/marketing">Marketing</NavLink>
+          <NavLink href="/crm/intelligence">Intelligence</NavLink>
           <a href="/">← Marketing site</a>
         </nav>
         <div className="crm-user">
-          Signed in as {session.name}
+          <span className="live-dot"></span>Signed in as {session.name}
           <form action={logout}>
             <button type="submit">Sign out</button>
           </form>

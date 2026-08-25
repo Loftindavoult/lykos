@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import StatCounter from "@/components/StatCounter";
 
 export const dynamic = "force-dynamic";
 
@@ -104,7 +105,9 @@ export default async function IntelligencePage() {
         {Object.entries(bandCounts).map(([band, count]) => (
           <div className="stat-tile" key={band}>
             <div className="stat-label">{band}</div>
-            <div className="stat-value">{count}</div>
+            <div className="stat-value">
+              <StatCounter value={count} />
+            </div>
             <div className="stat-sub">open accounts</div>
           </div>
         ))}

@@ -1,13 +1,9 @@
 import { db } from "@/lib/db";
 import { createAccount } from "@/lib/actions/crm";
 import PipelineBoard from "@/components/PipelineBoard";
+import StatCounter from "@/components/StatCounter";
 
 export const dynamic = "force-dynamic";
-
-function money(n) {
-  if (n == null) return "—";
-  return "$" + n.toLocaleString("en-US");
-}
 
 export default async function CrmDashboard() {
   const accounts = await db.account.findMany({
@@ -41,24 +37,32 @@ export default async function CrmDashboard() {
       <div className="stat-row">
         <div className="stat-tile">
           <div className="stat-label">Open pipeline value</div>
-          <div className="stat-value">{money(openValue)}</div>
+          <div className="stat-value">
+            <StatCounter value={openValue} prefix="$" />
+          </div>
           <div className="stat-sub">{open.length} open accounts</div>
         </div>
         <div className="stat-tile">
           <div className="stat-label">Win rate</div>
-          <div className="stat-value">{winRate}%</div>
+          <div className="stat-value">
+            <StatCounter value={winRate} suffix="%" />
+          </div>
           <div className="stat-sub">
             {won.length} won · {lost.length} lost
           </div>
         </div>
         <div className="stat-tile">
           <div className="stat-label">Total accounts</div>
-          <div className="stat-value">{accounts.length}</div>
+          <div className="stat-value">
+            <StatCounter value={accounts.length} />
+          </div>
           <div className="stat-sub">all time</div>
         </div>
         <div className="stat-tile">
           <div className="stat-label">Overdue tasks</div>
-          <div className="stat-value">{overdueTasks}</div>
+          <div className="stat-value">
+            <StatCounter value={overdueTasks} />
+          </div>
           <div className="stat-sub">across all accounts</div>
         </div>
       </div>

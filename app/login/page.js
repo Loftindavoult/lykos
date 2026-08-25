@@ -10,7 +10,10 @@ export default async function LoginPage() {
 
   return (
     <div className="auth-wrap">
-      <div className="auth-card">
+      <div className="auth-card hud-panel">
+        <div className="auth-status">
+          <span className="live-dot"></span>SYSTEMS ONLINE
+        </div>
         <div className="auth-brand">
           LYKOS <em>Intelligence</em>
         </div>
