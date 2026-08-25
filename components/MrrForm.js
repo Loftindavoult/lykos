@@ -2,7 +2,16 @@
 
 import { useState, useTransition } from "react";
 import { updateMrr } from "@/lib/actions/crm";
-import { PACKAGE_LEVELS, INVENTORY_ADDON, CONSULTING_RETAINER, calculateMrr, money } from "@/lib/pricing";
+import {
+  PACKAGE_LEVELS,
+  INVENTORY_ADDON,
+  CONSULTING_RETAINER,
+  STRIPE_FEES,
+  calculateMrr,
+  calculateStripeFee,
+  money,
+  money2,
+} from "@/lib/pricing";
 
 export default function MrrForm({ account }) {
   const [custom, setCustom] = useState(account.mrrCustom);
@@ -11,11 +20,14 @@ export default function MrrForm({ account }) {
   const [inventory, setInventory] = useState(account.addonInventory);
   const [consulting, setConsulting] = useState(account.addonConsulting);
   const [customValue, setCustomValue] = useState(account.mrr ?? 0);
+  const [billingMethod, setBillingMethod] = useState(account.billingMethod || "card");
   const [pending, startTransition] = useTransition();
 
-  const preview = custom
+  const gross = custom
     ? customValue
     : calculateMrr({ packageLevel, users, inventoryAddon: inventory, consultingRetainer: consulting });
+  const fee = calculateStripeFee(gross, billingMethod);
+  const net = Math.max(0, gross - fee);
 
   return (
     <form
@@ -84,7 +96,29 @@ export default function MrrForm({ account }) {
         </>
       )}
 
-      <div className="mrr-preview">Calculated MRR: {money(preview)}/mo</div>
+      <div className="field" style={{ marginTop: 10 }}>
+        <label htmlFor="billingMethod">Billing method</label>
+        <select
+          id="billingMethod"
+          name="billingMethod"
+          value={billingMethod}
+          onChange={(e) => setBillingMethod(e.target.value)}
+        >
+          {Object.entries(STRIPE_FEES).map(([key, f]) => (
+            <option key={key} value={key}>
+              {f.label} ({(f.pct * 100).toFixed(1)}%{f.flat ? ` + $${f.flat.toFixed(2)}` : ""}{f.cap ? `, capped at $${f.cap}` : ""})
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="mrr-preview">
+        Gross MRR: {money(gross)}/mo
+        <br />
+        Est. Stripe fee: {money2(fee)}
+        <br />
+        Net MRR: {money2(net)}/mo
+      </div>
 
       <button className="btn btn-primary btn-sm" type="submit" disabled={pending}>
         {pending ? "Saving…" : "Save MRR"}

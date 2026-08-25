@@ -49,6 +49,11 @@ model Account {
   userCount       Int?
   addonInventory  Boolean  @default(false)
   addonConsulting Boolean  @default(false)
+
+  // Which Stripe fee schedule applies (see STRIPE_FEES in lib/pricing.js) —
+  // drives the estimated processing-fee/net-MRR figures shown alongside
+  // the gross MRR everywhere it's displayed.
+  billingMethod   String   @default("card") // "card" | "ach"
 }
 
 model Activity {
