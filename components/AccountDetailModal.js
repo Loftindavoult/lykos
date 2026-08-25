@@ -15,7 +15,7 @@ export default function AccountDetailModal({ account, onClose }) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-card hud-panel" onClick={(e) => e.stopPropagation()}>
         <div className="modal-head">
           <div>
             <h2>{account.companyName}</h2>
