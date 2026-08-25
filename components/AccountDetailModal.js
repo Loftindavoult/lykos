@@ -4,6 +4,7 @@ import { useTransition } from "react";
 import { advanceStage, addActivity, addTask } from "@/lib/actions/crm";
 import { STAGES, ACTIVITY_TYPES, stageClass } from "@/lib/crmConstants";
 import TaskToggle from "./TaskToggle";
+import MrrForm from "./MrrForm";
 
 function money(n) {
   if (n == null) return "—";
@@ -51,6 +52,13 @@ export default function AccountDetailModal({ account, onClose }) {
             <span style={{ marginLeft: "auto", color: "var(--dark-dim)", fontSize: 13 }}>
               Deal value: {money(account.value)} · Source: {account.source}
             </span>
+          </div>
+
+          <div className="panel" style={{ marginTop: 16 }}>
+            <div className="panel-head">
+              <h3>Subscription (MRR)</h3>
+            </div>
+            <MrrForm account={account} />
           </div>
 
           <div className="detail-grid">

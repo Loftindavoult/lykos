@@ -14,8 +14,11 @@ function byIndustry(accounts) {
     if (!map.has(key)) map.set(key, { industry: key, total: 0, won: 0, lost: 0, open: 0, openValue: 0 });
     const row = map.get(key);
     row.total += 1;
-    if (a.stage === "Won") row.won += 1;
-    else if (a.stage === "Lost") row.lost += 1;
+    // everActive tells a historical win (including one that later churned)
+    // apart from a deal that fell through without ever reaching Active —
+    // both land on "Inactive", so the flag is what makes win rate meaningful.
+    if (a.everActive) row.won += 1;
+    else if (a.stage === "Inactive") row.lost += 1;
     else {
       row.open += 1;
       row.openValue += a.value || 0;
@@ -40,7 +43,7 @@ export default async function GtmPage() {
   const industries = byIndustry(accounts).sort((a, b) => b.total - a.total);
   const underpenetrated = [...industries].sort((a, b) => b.penetrationGap - a.penetrationGap).slice(0, 5);
 
-  const open = accounts.filter((a) => a.stage !== "Won" && a.stage !== "Lost");
+  const open = accounts.filter((a) => !a.everActive && a.stage !== "Inactive");
   const avgOpenValue = open.length ? open.reduce((s, a) => s + (a.value || 0), 0) / open.length : 0;
   const fourteenDaysAgo = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000);
 

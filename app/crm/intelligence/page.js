@@ -60,7 +60,7 @@ function scoreAccount(account, now) {
 export default async function IntelligencePage() {
   const now = new Date();
   const accounts = await db.account.findMany({
-    where: { stage: { notIn: ["Won", "Lost"] } },
+    where: { stage: { not: "Inactive" } },
     include: {
       activities: { orderBy: { createdAt: "desc" }, take: 1 },
       tasks: { where: { done: false } },
