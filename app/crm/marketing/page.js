@@ -31,7 +31,7 @@ export default async function MarketingPage({ searchParams }) {
   const params = await searchParams;
   const [campaigns, accounts, facebookAccount, linkedinAccount, posts] = await Promise.all([
     db.campaign.findMany({ orderBy: { createdAt: "desc" } }),
-    db.account.findMany({ select: { source: true, stage: true, value: true } }),
+    db.account.findMany({ select: { source: true, stage: true, value: true, everActive: true } }),
     db.socialAccount.findUnique({ where: { platform: "facebook" } }),
     db.socialAccount.findUnique({ where: { platform: "linkedin" } }),
     db.socialPost.findMany({ orderBy: { scheduledAt: "asc" } }),
@@ -42,7 +42,7 @@ export default async function MarketingPage({ searchParams }) {
 
   const campaignRows = campaigns.map((c) => {
     const matching = accounts.filter((a) => a.source === c.channel);
-    const won = matching.filter((a) => a.stage === "Won");
+    const won = matching.filter((a) => a.everActive);
     return {
       ...c,
       matchingCount: matching.length,

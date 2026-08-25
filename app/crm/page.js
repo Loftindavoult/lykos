@@ -14,12 +14,16 @@ export default async function CrmDashboard() {
     },
   });
 
-  const open = accounts.filter((a) => a.stage !== "Won" && a.stage !== "Lost");
-  const won = accounts.filter((a) => a.stage === "Won");
-  const lost = accounts.filter((a) => a.stage === "Lost");
+  // "Inactive" covers both a deal falling through and a customer churning —
+  // everActive (set once, for good, the first time a deal reaches "Active")
+  // is what tells the two apart for win-rate/MRR reporting.
+  const won = accounts.filter((a) => a.everActive);
+  const lost = accounts.filter((a) => a.stage === "Inactive" && !a.everActive);
+  const open = accounts.filter((a) => !a.everActive && a.stage !== "Inactive");
   const openValue = open.reduce((s, a) => s + (a.value || 0), 0);
   const decided = won.length + lost.length;
   const winRate = decided ? Math.round((won.length / decided) * 100) : 0;
+  const activeMrr = accounts.filter((a) => a.stage === "Active").reduce((s, a) => s + (a.mrr || 0), 0);
 
   const overdueTasks = await db.task.count({
     where: { done: false, dueDate: { lt: new Date() } },
@@ -64,6 +68,13 @@ export default async function CrmDashboard() {
             <StatCounter value={overdueTasks} />
           </div>
           <div className="stat-sub">across all accounts</div>
+        </div>
+        <div className="stat-tile">
+          <div className="stat-label">Active MRR</div>
+          <div className="stat-value">
+            <StatCounter value={activeMrr} prefix="$" />
+          </div>
+          <div className="stat-sub">{accounts.filter((a) => a.stage === "Active").length} active accounts</div>
         </div>
       </div>
 

@@ -24,7 +24,7 @@ export async function POST(request) {
   // real intent, not a passive click — so it starts warmer than a plain
   // "Request access" button. Any stage hint is still validated against the
   // real taxonomy so a bad client payload can't inject an arbitrary stage.
-  const defaultStage = body.source === "wizard" ? "Warm Lead" : "Cold Lead";
+  const defaultStage = body.source === "wizard" ? "Opportunity" : "Lead";
   const stage = STAGES.includes(body.stage) ? body.stage : defaultStage;
 
   const account = await db.account.create({

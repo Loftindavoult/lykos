@@ -27,13 +27,28 @@ model Account {
   email         String?
   phone         String?
   industry      String?
-  stage         String     @default("Lead") // Lead | Contacted | Qualified | Proposal | Won | Lost
+  stage         String     @default("Lead") // Lead | Opportunity | Build | Approval | Negotiations | Deploy | Active | Inactive
   source        String     @default("manual") // website | wizard | manual
-  value         Int? // deal value in whole dollars
+  value         Int? // one-time deal value in whole dollars (legacy; MRR is the primary figure now)
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
   activities    Activity[]
   tasks         Task[]
+
+  // Set once and never unset the first time stage becomes "Active" — lets
+  // "Inactive" (which covers both a deal falling through AND a paying
+  // customer churning) be told apart after the fact for win-rate/churn
+  // reporting, even though both land on the same terminal stage.
+  everActive    Boolean    @default(false)
+
+  // MRR calculator (see lib/pricing.js) — either computed from a package
+  // level + user count (+ optional add-ons), or a flat custom override.
+  mrr             Int?     // final monthly recurring revenue in whole dollars
+  mrrCustom       Boolean  @default(false)
+  packageLevel    String?  // key into PACKAGE_LEVELS, null if mrrCustom or unset
+  userCount       Int?
+  addonInventory  Boolean  @default(false)
+  addonConsulting Boolean  @default(false)
 }
 
 model Activity {

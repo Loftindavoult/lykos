@@ -30,7 +30,7 @@ function LeadCard({ account, onOpen }) {
         {[account.contactName, account.industry].filter(Boolean).join(" · ") || "No details yet"}
         {lastActivity ? ` · last touch ${new Date(lastActivity.createdAt).toLocaleDateString()}` : ""}
       </div>
-      <div className="lead-card-value">{money(account.value)}</div>
+      <div className="lead-card-value">{account.mrr ? `${money(account.mrr)}/mo MRR` : "No MRR set"}</div>
       {next && (
         <button
           type="button"
