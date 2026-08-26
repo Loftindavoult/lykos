@@ -6,21 +6,29 @@ import { STAGES, nextStage } from "@/lib/crmConstants";
 import { calculateStripeFee, money, money2 } from "@/lib/pricing";
 import AccountDetailModal from "./AccountDetailModal";
 
-function LeadCard({ account, onOpen }) {
+function LeadCard({ account, onOpen, onDragStart, onDragEnd, dragging }) {
   const [pending, startTransition] = useTransition();
   const next = nextStage(account.stage);
   const lastActivity = account.activities[0];
 
   return (
     <div
-      className="lead-card"
+      className={`lead-card${dragging ? " dragging" : ""}`}
       role="button"
       tabIndex={0}
+      draggable
+      onDragStart={(e) => {
+        e.dataTransfer.effectAllowed = "move";
+        e.dataTransfer.setData("text/plain", account.id);
+        onDragStart(account.id);
+      }}
+      onDragEnd={onDragEnd}
       onClick={() => onOpen(account.id)}
       onKeyDown={(e) => {
         if (e.key === "Enter") onOpen(account.id);
       }}
     >
+      {account.leadScore && <span className={`lead-grade grade-${account.leadScore}`}>{account.leadScore}</span>}
       <div className="lead-card-company">{account.companyName}</div>
       <div className="lead-card-meta">
         {[account.contactName, account.industry].filter(Boolean).join(" · ") || "No details yet"}
@@ -54,6 +62,9 @@ function LeadCard({ account, onOpen }) {
 export default function PipelineBoard({ accounts }) {
   const [search, setSearch] = useState("");
   const [activeId, setActiveId] = useState(null);
+  const [draggingId, setDraggingId] = useState(null);
+  const [dragOverStage, setDragOverStage] = useState(null);
+  const [, startTransition] = useTransition();
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -64,6 +75,19 @@ export default function PipelineBoard({ accounts }) {
   }, [accounts, search]);
 
   const active = accounts.find((a) => a.id === activeId) || null;
+
+  function handleDrop(e, stage) {
+    e.preventDefault();
+    setDragOverStage(null);
+    const accountId = e.dataTransfer.getData("text/plain") || draggingId;
+    setDraggingId(null);
+    if (!accountId) return;
+    const dragged = accounts.find((a) => a.id === accountId);
+    if (!dragged || dragged.stage === stage) return;
+    startTransition(() => {
+      advanceStage(accountId, stage);
+    });
+  }
 
   return (
     <>
@@ -80,7 +104,17 @@ export default function PipelineBoard({ accounts }) {
         {STAGES.map((stage) => {
           const col = filtered.filter((a) => a.stage === stage);
           return (
-            <div className="board-col" key={stage}>
+            <div
+              className={`board-col${dragOverStage === stage ? " drag-over" : ""}`}
+              key={stage}
+              onDragOver={(e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = "move";
+                if (dragOverStage !== stage) setDragOverStage(stage);
+              }}
+              onDragLeave={() => setDragOverStage((s) => (s === stage ? null : s))}
+              onDrop={(e) => handleDrop(e, stage)}
+            >
               <div className="board-col-head">
                 <span className="board-col-title">{stage}</span>
                 <span className="board-col-count">{col.length}</span>
@@ -88,7 +122,17 @@ export default function PipelineBoard({ accounts }) {
               <div className="board-col-body">
                 {col.length === 0 && <div className="board-col-empty">No accounts</div>}
                 {col.map((a) => (
-                  <LeadCard key={a.id} account={a} onOpen={setActiveId} />
+                  <LeadCard
+                    key={a.id}
+                    account={a}
+                    onOpen={setActiveId}
+                    onDragStart={setDraggingId}
+                    onDragEnd={() => {
+                      setDraggingId(null);
+                      setDragOverStage(null);
+                    }}
+                    dragging={draggingId === a.id}
+                  />
                 ))}
               </div>
             </div>

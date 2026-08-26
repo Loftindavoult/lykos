@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { createCampaign, createPost } from "@/lib/actions/marketing";
 import PostNowButton from "@/components/PostNowButton";
+import CampaignTargets from "@/components/CampaignTargets";
 
 export const dynamic = "force-dynamic";
 
@@ -31,7 +32,9 @@ export default async function MarketingPage({ searchParams }) {
   const params = await searchParams;
   const [campaigns, accounts, facebookAccount, linkedinAccount, posts] = await Promise.all([
     db.campaign.findMany({ orderBy: { createdAt: "desc" } }),
-    db.account.findMany({ select: { source: true, stage: true, value: true, everActive: true } }),
+    db.account.findMany({
+      select: { id: true, companyName: true, source: true, stage: true, industry: true, value: true, everActive: true, campaignId: true },
+    }),
     db.socialAccount.findUnique({ where: { platform: "facebook" } }),
     db.socialAccount.findUnique({ where: { platform: "linkedin" } }),
     db.socialPost.findMany({ orderBy: { scheduledAt: "asc" } }),
@@ -43,11 +46,13 @@ export default async function MarketingPage({ searchParams }) {
   const campaignRows = campaigns.map((c) => {
     const matching = accounts.filter((a) => a.source === c.channel);
     const won = matching.filter((a) => a.everActive);
+    const targets = accounts.filter((a) => a.campaignId === c.id);
     return {
       ...c,
       matchingCount: matching.length,
       wonCount: won.length,
       wonValue: won.reduce((s, a) => s + (a.value || 0), 0),
+      targets,
     };
   });
 
@@ -108,7 +113,7 @@ export default async function MarketingPage({ searchParams }) {
                 <th>Campaign</th>
                 <th>Channel</th>
                 <th>Spend</th>
-                <th>Pipeline</th>
+                <th>Pipeline (by channel)</th>
                 <th>Won</th>
               </tr>
             </thead>
@@ -125,6 +130,9 @@ export default async function MarketingPage({ searchParams }) {
             </tbody>
           </table>
         )}
+        {campaignRows.map((c) => (
+          <CampaignTargets key={c.id} campaign={c} targets={c.targets} />
+        ))}
         <form action={createCampaign} className="inline-form">
           <input type="text" name="name" placeholder="Campaign name" required />
           <select name="channel" defaultValue="website">

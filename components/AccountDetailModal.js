@@ -1,10 +1,11 @@
 "use client";
 
-import { useTransition } from "react";
-import { advanceStage, addActivity, addTask } from "@/lib/actions/crm";
-import { STAGES, ACTIVITY_TYPES, stageClass } from "@/lib/crmConstants";
+import { addActivity, addTask } from "@/lib/actions/crm";
+import { ACTIVITY_TYPES, stageClass } from "@/lib/crmConstants";
 import TaskToggle from "./TaskToggle";
 import MrrForm from "./MrrForm";
+import StagePath from "./StagePath";
+import LeadGradeControl from "./LeadGradeControl";
 
 function money(n) {
   if (n == null) return "—";
@@ -12,8 +13,6 @@ function money(n) {
 }
 
 export default function AccountDetailModal({ account, onClose }) {
-  const [stagePending, startStageTransition] = useTransition();
-
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-card hud-panel" onClick={(e) => e.stopPropagation()}>
@@ -33,26 +32,12 @@ export default function AccountDetailModal({ account, onClose }) {
         <div className="modal-body">
           <div className="stage-form">
             <span className={`badge badge-${stageClass(account.stage)}`}>{account.stage}</span>
-            <select
-              defaultValue={account.stage}
-              disabled={stagePending}
-              onChange={(e) => {
-                const stage = e.target.value;
-                startStageTransition(() => {
-                  advanceStage(account.id, stage);
-                });
-              }}
-            >
-              {STAGES.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
+            <LeadGradeControl account={account} />
             <span style={{ marginLeft: "auto", color: "var(--dark-dim)", fontSize: 13 }}>
               Deal value: {money(account.value)} · Source: {account.source}
             </span>
           </div>
+          <StagePath account={account} />
 
           <div className="panel" style={{ marginTop: 16 }}>
             <div className="panel-head">
