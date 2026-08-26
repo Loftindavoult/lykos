@@ -54,6 +54,12 @@ model Account {
   // drives the estimated processing-fee/net-MRR figures shown alongside
   // the gross MRR everywhere it's displayed.
   billingMethod   String   @default("card") // "card" | "ach"
+
+  // Which campaign this account is a target of / came from — lets a
+  // Campaign hold a real list of named businesses, not just an aggregate
+  // channel-string match.
+  campaignId String?
+  campaign   Campaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
 }
 
 model Activity {
@@ -80,11 +86,12 @@ model Task {
 }
 
 model Campaign {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   name      String
-  channel   String   // e.g. website | wizard | facebook | linkedin | referral
-  spend     Int?     // whole dollars
-  createdAt DateTime @default(now())
+  channel   String    // e.g. website | wizard | facebook | linkedin | referral
+  spend     Int?      // whole dollars
+  createdAt DateTime  @default(now())
+  accounts  Account[] // the real, named target/source list for this campaign
 }
 
 model SocialAccount {
