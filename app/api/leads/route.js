@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { STAGES } from "@/lib/crmConstants";
+import { gradeForBusiness } from "@/lib/leadScore";
 
 // Public, unauthenticated endpoint — every "Request access" touchpoint on the
 // marketing site (nav, hero, footer, cta-band, and the self-serve wizard)
@@ -27,12 +28,14 @@ export async function POST(request) {
   const defaultStage = body.source === "wizard" ? "Opportunity" : "Lead";
   const stage = STAGES.includes(body.stage) ? body.stage : defaultStage;
 
+  const industry = body.industry ? String(body.industry) : null;
   const account = await db.account.create({
     data: {
       companyName,
-      industry: body.industry ? String(body.industry) : null,
+      industry,
       source: body.source === "wizard" ? "wizard" : "website",
       stage,
+      leadScore: gradeForBusiness({ industry, companyName }),
     },
   });
 

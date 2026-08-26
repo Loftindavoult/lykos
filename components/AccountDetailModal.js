@@ -5,6 +5,7 @@ import { ACTIVITY_TYPES, stageClass } from "@/lib/crmConstants";
 import TaskToggle from "./TaskToggle";
 import MrrForm from "./MrrForm";
 import StagePath from "./StagePath";
+import LeadGradeControl from "./LeadGradeControl";
 
 function money(n) {
   if (n == null) return "—";
@@ -31,6 +32,7 @@ export default function AccountDetailModal({ account, onClose }) {
         <div className="modal-body">
           <div className="stage-form">
             <span className={`badge badge-${stageClass(account.stage)}`}>{account.stage}</span>
+            <LeadGradeControl account={account} />
             <span style={{ marginLeft: "auto", color: "var(--dark-dim)", fontSize: 13 }}>
               Deal value: {money(account.value)} · Source: {account.source}
             </span>

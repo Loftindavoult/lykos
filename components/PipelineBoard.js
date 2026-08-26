@@ -28,6 +28,7 @@ function LeadCard({ account, onOpen, onDragStart, onDragEnd, dragging }) {
         if (e.key === "Enter") onOpen(account.id);
       }}
     >
+      {account.leadScore && <span className={`lead-grade grade-${account.leadScore}`}>{account.leadScore}</span>}
       <div className="lead-card-company">{account.companyName}</div>
       <div className="lead-card-meta">
         {[account.contactName, account.industry].filter(Boolean).join(" · ") || "No details yet"}

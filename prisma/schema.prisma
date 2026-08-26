@@ -60,6 +60,12 @@ model Account {
   // channel-string match.
   campaignId String?
   campaign   Campaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+
+  // Lead grade (see lib/leadScore.js) — how good a fit this account's
+  // industry is for what Lykos actually sells. Computed automatically from
+  // `industry` on create/import, but staff can override it by hand.
+  leadScore     String? // "A" | "B" | "C" | "D", null = ungraded
+  leadScoreAuto Boolean @default(true) // false once a human overrides it
 }
 
 model Activity {
