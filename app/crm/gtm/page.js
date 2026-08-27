@@ -52,12 +52,94 @@ export default async function GtmPage() {
     .sort((a, b) => (b.value || 0) - (a.value || 0))
     .slice(0, 10);
 
+  const activeCount = accounts.filter((a) => a.stage === "Active").length;
+  const topIndustry = industries[0];
+
   return (
     <>
       <div className="crm-head">
         <div>
           <h1>GTM Strategy</h1>
           <p>Where the pipeline actually is, where it's converting, and where the real room to grow sits.</p>
+        </div>
+      </div>
+
+      <div className="panel" style={{ marginBottom: 20 }}>
+        <div className="panel-head">
+          <h3>The plan</h3>
+          <p>
+            {accounts.length} accounts tracked · {activeCount} Active
+            {topIndustry ? ` · leading industry: ${topIndustry.industry} (${topIndustry.total})` : ""}
+          </p>
+        </div>
+        <div className="gtm-strategy">
+          <div className="gtm-strategy-step">
+            <div className="gtm-strategy-num">1</div>
+            <div>
+              <h4>Pilot one region at a time, starting with Wichita Falls MSA</h4>
+              <p>
+                Archer, Clay &amp; Wichita counties — home turf, and the region the public-records pipeline
+                (Texas Comptroller new sales-tax-permit filings, refreshed quarterly) is already built around.
+                A tight geography keeps outreach personal and lets one campaign prove the motion before it's
+                copied anywhere else.
+              </p>
+            </div>
+          </div>
+
+          <div className="gtm-strategy-step">
+            <div className="gtm-strategy-num">2</div>
+            <div>
+              <h4>Match the outreach motion to the lead grade — not one blast to everyone</h4>
+              <ul>
+                <li>
+                  <span className="lead-grade-inline grade-A">A</span> Direct, personal outreach (call or visit)
+                  to contractors, real estate, healthcare, and professional/financial-service businesses — the
+                  ones that actually run on a client pipeline. Lead with regional proof (Holliday Creek Hat Co)
+                  and a discounted first 1–2 months on Website &amp; Leads + CRM &amp; Pipeline to get them live fast.
+                </li>
+                <li>
+                  <span className="lead-grade-inline grade-B">B</span> Scalable, light-touch email/postcard
+                  pointing straight at the self-serve wizard for retail, restaurants, and personal-service
+                  businesses — wizard signups already auto-enter the pipeline at "Opportunity," so this campaign
+                  feeds itself.
+                </li>
+                <li>
+                  <span className="lead-grade-inline grade-C">C</span> Narrow pitch only — Inventory &amp; Cash
+                  Flow for manufacturing/wholesale; skip marketing/creative/web agencies entirely, they already
+                  build their own tools.
+                </li>
+                <li>
+                  <span className="lead-grade-inline grade-D">D</span> Don't pursue.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="gtm-strategy-step">
+            <div className="gtm-strategy-num">3</div>
+            <div>
+              <h4>Run it as a real campaign, not a spreadsheet</h4>
+              <p>
+                One campaign per region per quarter in the Marketing hub, seeded directly from the scored
+                prospect list. Grades are automatic the moment a lead is imported, so prioritization never
+                depends on remembering which list a company came from.
+              </p>
+            </div>
+          </div>
+
+          <div className="gtm-strategy-step">
+            <div className="gtm-strategy-num">4</div>
+            <div>
+              <h4>Let the data pick the next move</h4>
+              <p>
+                Don't re-plan from scratch each quarter — the "Underpenetrated segments" and "Expansion
+                candidates" panels below are the live feedback loop. Once a region clears a repeatable win rate
+                and a handful of real Active accounts, run the identical motion (same public-filing pipeline,
+                same grading, same campaign structure) in the next-nearest MSA instead of inventing a new
+                playbook.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 

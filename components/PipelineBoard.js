@@ -59,11 +59,15 @@ function LeadCard({ account, onOpen, onDragStart, onDragEnd, dragging }) {
   );
 }
 
+const GRADE_ORDER = { A: 0, B: 1, C: 2, D: 3 };
+const CARDS_PER_PAGE = 5;
+
 export default function PipelineBoard({ accounts }) {
   const [search, setSearch] = useState("");
   const [activeId, setActiveId] = useState(null);
   const [draggingId, setDraggingId] = useState(null);
   const [dragOverStage, setDragOverStage] = useState(null);
+  const [expandedStages, setExpandedStages] = useState(() => new Set());
   const [, startTransition] = useTransition();
 
   const filtered = useMemo(() => {
@@ -102,7 +106,12 @@ export default function PipelineBoard({ accounts }) {
       </div>
       <div className="board">
         {STAGES.map((stage) => {
-          const col = filtered.filter((a) => a.stage === stage);
+          const col = filtered
+            .filter((a) => a.stage === stage)
+            .sort((a, b) => (GRADE_ORDER[a.leadScore] ?? 9) - (GRADE_ORDER[b.leadScore] ?? 9));
+          const expanded = expandedStages.has(stage);
+          const visible = expanded ? col : col.slice(0, CARDS_PER_PAGE);
+          const hiddenCount = col.length - visible.length;
           return (
             <div
               className={`board-col${dragOverStage === stage ? " drag-over" : ""}`}
@@ -121,7 +130,7 @@ export default function PipelineBoard({ accounts }) {
               </div>
               <div className="board-col-body">
                 {col.length === 0 && <div className="board-col-empty">No accounts</div>}
-                {col.map((a) => (
+                {visible.map((a) => (
                   <LeadCard
                     key={a.id}
                     account={a}
@@ -134,6 +143,30 @@ export default function PipelineBoard({ accounts }) {
                     dragging={draggingId === a.id}
                   />
                 ))}
+                {hiddenCount > 0 && (
+                  <button
+                    type="button"
+                    className="board-col-showall"
+                    onClick={() => setExpandedStages((prev) => new Set(prev).add(stage))}
+                  >
+                    Show all ({col.length})
+                  </button>
+                )}
+                {expanded && col.length > CARDS_PER_PAGE && (
+                  <button
+                    type="button"
+                    className="board-col-showall"
+                    onClick={() =>
+                      setExpandedStages((prev) => {
+                        const next = new Set(prev);
+                        next.delete(stage);
+                        return next;
+                      })
+                    }
+                  >
+                    Show less
+                  </button>
+                )}
               </div>
             </div>
           );
