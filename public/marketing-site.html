@@ -777,6 +777,154 @@
   .portfolio-desc { font-size: 14.5px; color: var(--ink-dim); line-height: 1.65; max-width: 60ch; margin: 0; }
   .portfolio-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
 
+  /* ---------- pricing ---------- */
+
+  #pricing { padding: clamp(72px, 10vw, 112px) 0; }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+    align-items: stretch;
+  }
+
+  .price-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 30px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .price-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(26,23,23,0.08); }
+
+  .price-card.recommended {
+    border: 2px solid var(--red-mid);
+    box-shadow: 0 12px 36px rgba(143,26,31,0.14);
+  }
+  .price-card.recommended:hover { box-shadow: 0 22px 48px rgba(143,26,31,0.2); }
+
+  .price-rec-tag {
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff5f3;
+    background: linear-gradient(135deg, var(--red-mid), var(--red-deep));
+    padding: 5px 14px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .price-card.addon { border-style: dashed; background: var(--paper); }
+
+  .price-tier {
+    font-family: var(--sans);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red-mid);
+    margin: 0;
+  }
+  .price-card h3 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .price-amount {
+    font-family: var(--serif);
+    font-size: 38px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1;
+    margin: 0;
+  }
+  .price-amount span { font-family: var(--sans); font-size: 14px; font-weight: 500; color: var(--ink-dim); letter-spacing: 0; }
+  .price-per-user {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    margin: -6px 0 0;
+  }
+  .price-setup {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--red-mid);
+    margin: 0;
+  }
+  .price-wide .price-setup { color: var(--red-bright); }
+
+  .price-includes {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-dimmer);
+    margin: 4px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+
+  .price-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; flex: 1; }
+  .price-list li {
+    font-size: 14px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    padding-left: 22px;
+    position: relative;
+  }
+  .price-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--red-mid);
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  .price-cta { margin-top: 4px; }
+  .price-cta .btn { width: 100%; justify-content: center; text-align: center; }
+
+  .price-wide {
+    margin-top: 22px;
+    background: linear-gradient(155deg, var(--dark), #241d20);
+    border: 1px solid var(--dark-line);
+    border-radius: 16px;
+    padding: 34px 32px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px;
+  }
+  .price-wide-body { flex: 1 1 380px; display: flex; flex-direction: column; gap: 10px; }
+  .price-wide .price-tier { color: var(--red-bright); }
+  .price-wide h3 { font-family: var(--serif); font-weight: 600; font-size: 24px; color: var(--dark-ink); margin: 0; }
+  .price-wide p { font-size: 14.5px; color: var(--dark-dim); line-height: 1.65; margin: 0; max-width: 62ch; }
+  .price-wide-amount { text-align: right; flex: 0 0 auto; }
+  .price-wide-amount .price-amount { font-family: var(--serif); font-size: 38px; font-weight: 600; line-height: 1; color: var(--dark-ink); max-width: none; }
+  .price-wide-amount .price-amount span { color: var(--dark-dim); }
+
+  .pricing-foot {
+    margin-top: 26px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--ink-dimmer);
+  }
+
   /* ---------- final cta ---------- */
 
   .cta-band {
@@ -1474,6 +1622,7 @@
       <div class="nav-links-mid" style="display:flex; gap:34px;">
         <a href="#platform">Platform</a>
         <a href="#portfolio">Portfolio</a>
+        <a href="#pricing">Pricing</a>
         <a href="#mission">Why Lykos</a>
       </div>
       <a class="btn btn-primary" onclick="siteRequestAccess('nav')" href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20Request%20access"><span class="btn-inner">Request access<span class="btn-arrow">→</span><span class="btn-shine"></span></span></a>
@@ -1585,6 +1734,128 @@
       </div>
     </div>
   </div>
+</section>
+
+<section class="wrap" id="pricing">
+  <div class="band-head reveal">
+    <p class="eyebrow">Pricing</p>
+    <h2 style="color:var(--ink);">Start where you are. Stair-step up as you grow.</h2>
+    <p>Every level includes everything in the level before it — you never lose a feature by growing.</p>
+  </div>
+
+  <div class="pricing-grid reveal">
+
+    <div class="price-card">
+      <p class="price-tier">Level 1</p>
+      <h3>Website &amp; Leads</h3>
+      <p class="price-amount">$39<span>/mo</span></p>
+      <p class="price-per-user">flat — no per-user fee</p>
+      <p class="price-setup">$250 one-time stand-up fee</p>
+      <p class="price-includes">What you get</p>
+      <ul class="price-list">
+        <li>A real, professionally built website for your business</li>
+        <li>Every "contact us" click captured as a real lead — automatically</li>
+        <li>Lead notifications straight to your inbox</li>
+        <li>Hosting, domain wiring, and updates handled for you</li>
+      </ul>
+      <div class="price-cta"><a class="btn btn-ghost" onclick="siteRequestAccess('pricing — Website &amp; Leads')" href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20Website%20%26%20Leads">Request access →</a></div>
+    </div>
+
+    <div class="price-card recommended">
+      <span class="price-rec-tag">Recommended</span>
+      <p class="price-tier">Level 2</p>
+      <h3>CRM &amp; Pipeline</h3>
+      <p class="price-amount">$49<span>/mo</span></p>
+      <p class="price-per-user">+ $12/mo per user</p>
+      <p class="price-setup">$300 one-time stand-up fee</p>
+      <p class="price-includes">Everything in Website &amp; Leads, plus</p>
+      <ul class="price-list">
+        <li>A full pipeline board — drag deals through every stage to close</li>
+        <li>Website leads land on your board by themselves</li>
+        <li>Activity logs and tasks on every account, so nothing slips</li>
+        <li>Revenue tracking with processing fees estimated for you</li>
+      </ul>
+      <div class="price-cta"><a class="btn btn-primary" onclick="siteRequestAccess('pricing — CRM &amp; Pipeline')" href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20CRM%20%26%20Pipeline"><span class="btn-inner">Request access<span class="btn-arrow">→</span><span class="btn-shine"></span></span></a></div>
+    </div>
+
+    <div class="price-card">
+      <p class="price-tier">Level 3</p>
+      <h3>GTM Strategy</h3>
+      <p class="price-amount">$59<span>/mo</span></p>
+      <p class="price-per-user">+ $12/mo per user</p>
+      <p class="price-setup">$375 one-time stand-up fee</p>
+      <p class="price-includes">Everything in CRM &amp; Pipeline, plus</p>
+      <ul class="price-list">
+        <li>Automatic A–D lead grading, so you call the right ones first</li>
+        <li>Win-rate and pipeline breakdowns by industry</li>
+        <li>Underpenetrated-market detection from your own data</li>
+        <li>A written go-to-market plan, built into your dashboard</li>
+      </ul>
+      <div class="price-cta"><a class="btn btn-ghost" onclick="siteRequestAccess('pricing — GTM Strategy')" href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20GTM%20Strategy">Request access →</a></div>
+    </div>
+
+    <div class="price-card">
+      <p class="price-tier">Level 4</p>
+      <h3>Marketing</h3>
+      <p class="price-amount">$79<span>/mo</span></p>
+      <p class="price-per-user">+ $12/mo per user</p>
+      <p class="price-setup">$450 one-time stand-up fee</p>
+      <p class="price-includes">Everything in GTM Strategy, plus</p>
+      <ul class="price-list">
+        <li>Run real campaigns with real target lists — inside the CRM</li>
+        <li>Bulk-import prospect lists straight onto your board</li>
+        <li>A content calendar with social posting built in</li>
+        <li>See which campaigns actually turn into pipeline</li>
+      </ul>
+      <div class="price-cta"><a class="btn btn-ghost" onclick="siteRequestAccess('pricing — Marketing')" href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20Marketing">Request access →</a></div>
+    </div>
+
+    <div class="price-card">
+      <p class="price-tier">Level 5</p>
+      <h3>Intelligence Layer</h3>
+      <p class="price-amount">$149<span>/mo</span></p>
+      <p class="price-per-user">+ $12/mo per user</p>
+      <p class="price-setup">$550 one-time stand-up fee</p>
+      <p class="price-includes">Everything in Marketing, plus</p>
+      <ul class="price-list">
+        <li>Health scores on every account — know who's drifting before they churn</li>
+        <li>Rule-based alerts when accounts go quiet or tasks pile up</li>
+        <li>Churn vs. fell-through tracking, handled automatically</li>
+        <li>The signals that tell you where to spend your next hour</li>
+      </ul>
+      <div class="price-cta"><a class="btn btn-ghost" onclick="siteRequestAccess('pricing — Intelligence Layer')" href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20Intelligence%20Layer">Request access →</a></div>
+    </div>
+
+    <div class="price-card addon">
+      <p class="price-tier">Optional add-on</p>
+      <h3>Inventory &amp; Cash Flow</h3>
+      <p class="price-amount">+$30<span>/mo</span></p>
+      <p class="price-per-user">no seat fees — your package already covers users</p>
+      <p class="price-setup">+$100 stand-up, added to your package's stand-up fee</p>
+      <p class="price-includes">Added on top of any package</p>
+      <ul class="price-list">
+        <li>Track inventory alongside your pipeline</li>
+        <li>Cash-flow visibility for the money side of the business</li>
+        <li>Add it to any level whenever you're ready</li>
+      </ul>
+      <div class="price-cta"><a class="btn btn-ghost" onclick="siteRequestAccess('pricing — Inventory &amp; Cash Flow add-on')" href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20Inventory%20%26%20Cash%20Flow">Request access →</a></div>
+    </div>
+
+  </div>
+
+  <div class="price-wide reveal">
+    <div class="price-wide-body">
+      <p class="price-tier">Level 6</p>
+      <h3>Operational Consulting</h3>
+      <p>Everything in the Intelligence Layer, plus a real operator in your corner — a monthly retainer for hands-on strategy, process design, and working the plan with you, not just handing you software.</p>
+    </div>
+    <div class="price-wide-amount">
+      <p class="price-amount">$1,500<span>/mo retainer</span></p>
+    </div>
+    <div class="price-cta"><a class="btn btn-primary" onclick="siteRequestAccess('pricing — Operational Consulting')" href="mailto:loftindavoult@gmail.com?subject=Lykos%20Intelligence%20—%20Operational%20Consulting"><span class="btn-inner">Let's talk<span class="btn-arrow">→</span><span class="btn-shine"></span></span></a></div>
+  </div>
+
+  <p class="pricing-foot">The one-time stand-up fee covers your initial build, data setup, and onboarding — you're live before the first month bills. Upgrading later? You only pay the difference between stand-up fees — what you've already paid counts. Per-user pricing applies to staff seats in your CRM. Invite-only — every account starts with a real conversation.</p>
 </section>
 
 <section class="split wrap" id="mission">
