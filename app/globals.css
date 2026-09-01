@@ -799,3 +799,45 @@ table.crm-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
 .campaign-target-row:last-child { border-bottom: none; }
 .campaign-target-name { flex: 1; color: var(--dark-ink); }
 .campaign-target-industry { color: var(--dark-dim); font-size: 11.5px; }
+
+/* ---------- contact panel ---------- */
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px 20px 16px;
+}
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dark-ink);
+  text-decoration: none;
+  border: 1px solid var(--dark-line);
+  border-radius: 999px;
+  padding: 6px 13px;
+  transition: border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+.contact-link:hover {
+  border-color: var(--red-bright);
+  color: var(--red-bright);
+  box-shadow: 0 0 12px rgba(194, 58, 48, 0.25);
+}
+.contact-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+  padding: 14px 20px 16px;
+}
+.contact-form input {
+  background: var(--dark);
+  border: 1px solid var(--dark-line);
+  border-radius: 8px;
+  color: var(--dark-ink);
+  font-family: var(--sans);
+  font-size: 13px;
+  padding: 9px 12px;
+}
+.contact-form input:focus { outline: none; border-color: var(--red-bright); }

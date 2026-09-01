@@ -6,6 +6,7 @@ import TaskToggle from "./TaskToggle";
 import MrrForm from "./MrrForm";
 import StagePath from "./StagePath";
 import LeadGradeControl from "./LeadGradeControl";
+import ContactPanel from "./ContactPanel";
 
 function money(n) {
   if (n == null) return "—";
@@ -38,6 +39,8 @@ export default function AccountDetailModal({ account, onClose }) {
             </span>
           </div>
           <StagePath account={account} />
+
+          <ContactPanel account={account} />
 
           <div className="panel" style={{ marginTop: 16 }}>
             <div className="panel-head">

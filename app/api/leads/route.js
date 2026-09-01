@@ -29,10 +29,23 @@ export async function POST(request) {
   const stage = STAGES.includes(body.stage) ? body.stage : defaultStage;
 
   const industry = body.industry ? String(body.industry) : null;
+
+  // Optional contact fields — used by bulk/programmatic imports; the one-click
+  // marketing-site buttons never send these. Length-capped so an abusive
+  // payload can't stuff megabytes into a column.
+  const opt = (v, max = 300) => {
+    const s = String(v || "").trim();
+    return s ? s.slice(0, max) : null;
+  };
+
   const account = await db.account.create({
     data: {
       companyName,
       industry,
+      email: opt(body.email),
+      phone: opt(body.phone, 40),
+      website: opt(body.website),
+      socialUrl: opt(body.socialUrl),
       source: body.source === "wizard" ? "wizard" : "website",
       stage,
       leadScore: gradeForBusiness({ industry, companyName }),

@@ -26,6 +26,8 @@ model Account {
   contactName   String?
   email         String?
   phone         String?
+  website       String?
+  socialUrl     String? // Facebook/Instagram page — whichever the business actually uses
   industry      String?
   stage         String     @default("Lead") // Lead | Opportunity | Build | Approval | Negotiations | Deploy | Active | Inactive
   source        String     @default("manual") // website | wizard | manual
