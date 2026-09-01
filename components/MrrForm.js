@@ -87,7 +87,8 @@ export default function MrrForm({ account }) {
           </div>
           <label className="mrr-addon-row">
             <input type="checkbox" name="addonInventory" checked={inventory} onChange={(e) => setInventory(e.target.checked)} />
-            + {INVENTORY_ADDON.label} (${INVENTORY_ADDON.base}/mo + ${INVENTORY_ADDON.perUser}/user)
+            + {INVENTORY_ADDON.label} (${INVENTORY_ADDON.base}/mo
+            {INVENTORY_ADDON.perUser > 0 ? ` + $${INVENTORY_ADDON.perUser}/user` : " flat, no seat fees"})
           </label>
           <label className="mrr-addon-row">
             <input type="checkbox" name="addonConsulting" checked={consulting} onChange={(e) => setConsulting(e.target.checked)} />
